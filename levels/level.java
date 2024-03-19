@@ -99,13 +99,15 @@ class level{
 	//oldPos - tile to be moved {x, y}
 	//newPos - posiion for tile to be moved to {x, y}
 	public Boolean moveTile(int oldPos[], int newPos[]){
-		int tileVal = 0;
-
-		tileVal = curLevel.get(oldPos[1]).get(oldPos[0]);
-		if(tileVal != 0)
+		int newTile = 0;
+    int oldTile = 0;
+		newTile = curLevel.get(newPos[1]).get(newPos[0]);
+		if(newTile != 0){
 			return false;
-
-		curLevel.get(newPos[1]).set(newPos[0], tileVal);
+    }
+    oldTile = curLevel.get(oldPos[1]).get(oldPos[0]);
+		curLevel.get(newPos[1]).set(newPos[0], oldTile);
+    curLevel.get(oldPos[1]).set(oldPos[0], 0);
 		return true;
 	}
 }
