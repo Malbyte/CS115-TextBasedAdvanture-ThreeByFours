@@ -20,7 +20,8 @@ class level{
 		Scanner lProcess = null;
 		int currentIndex = 0;
 
-
+    //make sure there is no old map data currently in the array
+    curLevel.clear();
 
 		//try to open given file
 		fp = new File(mapName);
@@ -112,4 +113,8 @@ class level{
     curLevel.get(oldPos[1]).set(oldPos[0], 0);
 		return true;
 	}
+
+  public void setTile(int pos[], int val){
+    curLevel.get(pos[1]).set(pos[0], val);
+  }
 }
