@@ -20,13 +20,19 @@ class level{
 		Scanner lProcess = null;
 		int currentIndex = 0;
 
+
+
 		//try to open given file
 		fp = new File(mapName);
+
+
 		//if file does not exist, return false
 		if(!fp.exists()){
 
 			return false;
 		}
+
+
 		//try to open a scanner to read map file
 		try{
 		fIn = new Scanner(fp);
@@ -36,13 +42,7 @@ class level{
 
 			return false;
 		}
-		//try to open a scanner to parse a line
 
-		//if failed to open a scanner object, return false
-		if(fIn == null){
-
-			return false;
-		}
 
 
 		//read data into arrayList
@@ -73,6 +73,8 @@ class level{
 			lProcess.close();
 			currentIndex++;
 		}
+
+
 
 		//close scanner objects
 		fIn.close();
