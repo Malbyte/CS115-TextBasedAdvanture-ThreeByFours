@@ -135,7 +135,7 @@ class level{
     System.out.print("\033[H\033[2J");
 
     for(int y = 0; y < curLevel.size(); y++){
-      for(int x = 0; x < curLevel.size(); x++){
+      for(int x = 0; x < curLevel.get(y).size(); x++){
         curEntity = curLevel.get(y).get(x);
         if(curEntity != null){
           curEntity.drawEntity();
