@@ -3,4 +3,13 @@ public class item{
 	protected int itemDamage = 0;
 	protected int itemDurability = 1;
 
+	public int getId() {
+		return itemId;
+	}
+	public  int getDamage() {
+		return itemDamage;
+	}
+	public int getDurability() {
+		return itemDurability;
+	}
 }
