@@ -11,13 +11,14 @@ class level{
   // represents a list of all entities and their matching ID; this goes to the switch statement on how they should be spawned when loading a new level
   enum entityTypes{
     EMPTY,
-    PLAYER
+    PLAYER,
+    WALL
   };
 
 
   ///// map variables /////
 	// assumes the top left is the origin point, <0, 0>
-  entity player = new player(STARTINGPLAYERHEALTH, STARTINGPLAYERDAMAGE);
+  entity player = new player(this, STARTINGPLAYERHEALTH, STARTINGPLAYERDAMAGE);
 
 	private ArrayList<ArrayList<entity>> curLevel;
   /////////////////////////
@@ -89,9 +90,7 @@ class level{
 
       //go through integers in line
 			while(lProcess.hasNextInt()){
-        //using modulo in case it reads a value bigger than it is supposed to, rather than crashing it will generate garbage tiles
-        //may just be better to let it crash but old habits die hard ig
-				entityAdd(entityTypes.values()[lProcess.nextInt()% (entityTypes.values().length)], currentIndex);
+				entityAdd(entityTypes.values()[lProcess.nextInt() % entityTypes.values().length], currentIndex);
 			}
 
 			//close scanner for the line
@@ -117,10 +116,13 @@ class level{
         break;
       case PLAYER:
         //instead of creating a new instance, set the position of the player here and have a reference to the object!
-
-
+        tempEntity = player;
+        player.setPos(new int[] {curLevel.get(currentIndex).size(), currentIndex});
         break;
+        case WALL:
+        tempEntity = new wall(this);
       default:
+        //unkown entity, draw error entity
         break;
     }
     curLevel.get(currentIndex).add(tempEntity);
@@ -128,9 +130,20 @@ class level{
 	//prints the current map to the screen
 	public void printMap(){
 		//clears the screen and displays a viewport of the level
+    entity curEntity = null;
+
+    System.out.print("\033[H\033[2J");
+
     for(int y = 0; y < curLevel.size(); y++){
       for(int x = 0; x < curLevel.size(); x++){
-        System.out.printf("%d ", curLevel.get(y).get(x));
+        curEntity = curLevel.get(y).get(x);
+        if(curEntity != null){
+          curEntity.drawEntity();
+        }
+        else{
+          //draw empty area
+          System.out.printf("``");
+        }
       }
       System.out.println();
     }
@@ -141,6 +154,7 @@ class level{
 		return curLevel.get(pos[1]).get(pos[0]);
 	}
 
+  //tries to move an entity to a given position
 	//oldPos - tile to be moved {x, y}
 	//newPos - posiion for tile to be moved to {x, y}
 	public Boolean moveTile(int oldPos[], int newPos[]){
@@ -166,5 +180,15 @@ class level{
 
   public void setTile(int pos[], entity val){
     curLevel.get(pos[1]).set(pos[0], val);
+  }
+
+  //returns reference to player object
+  public entity getPlayer() {
+      return player;
+  }
+
+  //since the maps expected are always going to be the shape of a rectangle, this is acceptable
+  public int[] mapSize(){
+    return new int[] {curLevel.get(0).size(), curLevel.size()};
   }
 }
