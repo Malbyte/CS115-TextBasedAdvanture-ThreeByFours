@@ -15,6 +15,13 @@ public class item{
 			itemDurability -= dmg;
 	}
 	////////////////////////////////////////////
+	// Function for upgrading the item
+	////////////////////////////////////////////
+	public void upgrade() {
+		itemDamage = itemdamage * 2;
+	}
+
+	////////////////////////////////////////////
 	// Getters
 	public int getId() {
 		return itemId;
