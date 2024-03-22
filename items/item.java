@@ -11,11 +11,11 @@ public class item{
 		itemDurability = dur;
 		itemName = name;
 	}
+	public void damageDurability(int dmg) {
+			itemDurability -= dmg;
+	}
 	////////////////////////////////////////////
 	// Getters
-	public void damageDurability(int dmg) {
-		itemDurability -= dmg;
-	}
 	public int getId() {
 		return itemId;
 	}
