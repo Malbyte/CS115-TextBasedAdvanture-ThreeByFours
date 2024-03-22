@@ -18,7 +18,8 @@ public class item{
 	// Function for upgrading the item
 	////////////////////////////////////////////
 	public void upgrade() {
-		itemDamage = itemdamage * 2;
+		itemName = itemName + "+";
+		itemDamage = itemDamage * 2;
 	}
 
 	////////////////////////////////////////////
