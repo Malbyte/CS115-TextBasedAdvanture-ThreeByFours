@@ -22,7 +22,10 @@ public class ItemGenerator {
 				i = new stick(id, -20, 5, "Stick of Power"); // itemName(itemId, healingOrDamage, durability, name)
 				break;
 			case 2: // a basic sword
-				i = new sword(id, -20, 10,);
+				i = new sword(id, -20, 10);
+				break;
+			case 3: // a basic potion
+				i = new potion(id, 20, 5);
 				break;
 		}
 		return i;
