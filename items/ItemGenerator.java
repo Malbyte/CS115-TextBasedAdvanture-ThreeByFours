@@ -7,7 +7,7 @@ public class ItemGenerator {
 		item i;
 		switch id:
 			case 0:
-				i = new stick(id, -1, 1); // itemName(itemId, healing/damage, durability)
+				i = new stick(id, -1, 1); // itemName(itemId, healingOrDamage, durability)
 				break;
 		return i;
 	}
