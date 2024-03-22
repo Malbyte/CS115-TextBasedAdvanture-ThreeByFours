@@ -5,6 +5,9 @@ public class ItemGenerator {
 		System.out.println(stck.getDamage());
 	}
 
+	/////////////////////////////////////////////////////////
+	// Function for generating an item of the specified id
+	/////////////////////////////////////////////////////////
 	public static item generate(int id) {
 		item i = null;
 		switch (id){
