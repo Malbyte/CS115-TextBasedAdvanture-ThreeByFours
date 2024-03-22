@@ -16,10 +16,10 @@ public class ItemGenerator {
 		item i = null;
 		switch (id){
 			case 0: // a basic stick
-				i = new stick(id, -1, 1); // itemName(itemId, healingOrDamage, durability)
+				i = new stick(id, -15, 1); // itemName(itemId, healingOrDamage, durability)
 				break;
 			case 1: // a special stick
-				i = new stick(id, -2, 1, "Stick of Power"); // itemName(itemId, healingOrDamage, durability, name)
+				i = new stick(id, -20, 1, "Stick of Power"); // itemName(itemId, healingOrDamage, durability, name)
 				break;
 		}
 		return i;
