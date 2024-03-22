@@ -1,5 +1,5 @@
 public class ItemGenerator {
-	// Main methood for testing purposes
+	// Main method for testing purposes
 	public static void main(String[] args) {
 		item stck = generate(0);
 		System.out.println(stck.getDamage());
