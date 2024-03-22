@@ -1,8 +1,10 @@
 public class ItemGenerator {
 	// Main method for testing purposes
 	public static void main(String[] args) {
-		item stck = generate(0);
-		System.out.println(stck.getDamage());
+		item stck1 = generate(0);
+		item stck2 = generate(1);
+		System.out.println(stck1.getName() + " does "+ stck1.getDamage());
+		System.out.println(stck2.getName() + " does "+ stck2.getDamage());
 	}
 
 	/////////////////////////////////////////////////////////
@@ -11,8 +13,11 @@ public class ItemGenerator {
 	public static item generate(int id) {
 		item i = null;
 		switch (id){
-			case 0:
+			case 0: // a basic stick
 				i = new stick(id, -1, 1); // itemName(itemId, healingOrDamage, durability)
+				break;
+			case 1: // a special stick
+				i = new stick(id, -2, 1, "Stick of Power"); // itemName(itemId, healingOrDamage, durability, name)
 				break;
 		}
 		return i;
