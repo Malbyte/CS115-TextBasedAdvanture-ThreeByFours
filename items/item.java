@@ -4,7 +4,7 @@ public class item{
 	public item(int id, int dmg, int dur) {
 		itemId = id;
 		itemDamage = dmg;
-		itemDurablity = dur;
+		itemDurability = dur;
 	}
 	public void damageDurability(int dmg) {
 		itemDurability -= dmg;
