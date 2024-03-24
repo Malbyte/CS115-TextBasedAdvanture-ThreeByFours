@@ -12,7 +12,8 @@ class level{
   enum entityTypes{
     EMPTY,
     PLAYER,
-    WALL
+    WALL,
+    DOOR
   };
 
 
@@ -93,6 +94,35 @@ class level{
 				entityAdd(entityTypes.values()[lProcess.nextInt() % entityTypes.values().length], currentIndex);
 			}
 
+
+      //check if has arguments after array
+      int i = 0;
+      while(lProcess.hasNext()){
+        //yeah I'm instantiating the same variable like 100 times, sue me
+        String subLine = lProcess.next();
+        subLine = subLine.replace("\"", "");
+        subLine = subLine.replace(" ", "");
+
+        //find entity that is recieving argument
+        for(i = i; i < curLevel.get(currentIndex).size(); i++){
+          if(curLevel.get(currentIndex).get(i).takesArgument()){
+            //found corrosponding entity, give argument and continue variable assignments
+            curLevel.get(currentIndex).get(i++).assignArgument(subLine);
+
+            break;
+          }
+        }
+        if(i == curLevel.get(currentIndex).size()){
+          //no entity corrosponding, throw error!
+
+          System.out.printf("ERROR: Extraneous variable %s!\n", subLine);
+
+          //extra variable, may be configured wrong
+          System.exit(-1);
+        }
+      }
+
+
 			//close scanner for the line
 			lProcess.close();
 			currentIndex++;
@@ -117,10 +147,19 @@ class level{
       case PLAYER:
         //instead of creating a new instance, set the position of the player here and have a reference to the object!
         tempEntity = player;
-        player.setPos(new int[] {curLevel.get(currentIndex).size(), currentIndex});
+        tempEntity.setPos(new int[] {curLevel.get(currentIndex).size(), currentIndex});
+
         break;
         case WALL:
         tempEntity = new wall(this);
+        tempEntity.setPos(new int[] {curLevel.get(currentIndex).size(), currentIndex});
+
+        break;
+        case DOOR:
+        tempEntity = new door(this);
+        tempEntity.setPos(new int[] {curLevel.get(currentIndex).size(), currentIndex});
+
+        break;
       default:
         //unkown entity, draw error entity
         break;
@@ -190,5 +229,11 @@ class level{
   //since the maps expected are always going to be the shape of a rectangle, this is acceptable
   public int[] mapSize(){
     return new int[] {curLevel.get(0).size(), curLevel.size()};
+  }
+
+  //returns an array of the shortest path from posA to posB.
+  //uses the A Star algorithm
+  public int[] getPath(int posA[], int posB[]){
+
   }
 }
