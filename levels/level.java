@@ -241,11 +241,17 @@ class level{
     //first start off before main loop by setting up all tiles surrounding posA
     //(since posA will contain an entity and therefore a node cannot coexist on this tile)
     if(expandTile(currentNodeList, posA, posB)){
+      //clear all tiles that may exist and return
+      for(int i = 0; i < currentNodeList.size(); i++){
+        this.setTile(currentNodeList.get(i).getPos(), null);
+      }
+
       return null;
     }
     //have initialized all nodes surrounding starting point. can now run main
     //algorithm loop
     while(true){
+      this.printMap();
       //first start iteration by organizing the nodes to find least value.
       currentNodeList.sort(new AStarNodeComparator());
 
@@ -254,17 +260,23 @@ class level{
         //take current node, trace all previous cheapest nodes and put all into final returned array
         AStarNode tempNode = currentNodeList.get(0);
 
-        while(tempNode.getLastNodePos() != null){
+        while((tempNode.getLastNodePos()[0] != posA[0]) || (tempNode.getLastNodePos()[1] != posA[1])){
           finalPath.add(tempNode.getPos());
 
           //update the tempNode
           tempNode = (AStarNode) getTile(tempNode.getLastNodePos());
         }
+        //add final tile
+        finalPath.add(tempNode.getPos());
 
         break;
       }
       //if not reached goal, expand the next cheapest node
     }
+  //clear all tiles that may exist and return
+  for(int i = 0; i < currentNodeList.size(); i++){
+    this.setTile(currentNodeList.get(i).getPos(), null);
+  }
 
     return finalPath;
   }
@@ -276,26 +288,26 @@ class level{
 
         //go over all 9 tiles in area, if it is null, put a tile and it's initial value in
         //first check if the current tile exists
-        if((posIntermediary[0] + x > 0 && posIntermediary[0] + x < this.curLevel.get(posIntermediary[1]+y).size()) && (posIntermediary[1] + y > 0 && posIntermediary[1] + y < this.curLevel.size())){
+        if((posIntermediary[0] + x >= 0 && posIntermediary[0] + x < this.curLevel.get(posIntermediary[1]+y).size()) && (posIntermediary[1] + y >= 0 && posIntermediary[1] + y < this.curLevel.size())){
           //tile exists!
 
           //now check if tile is not occupied
-          if(getTile(new int[] {x, y}) == null){
+          if(getTile(new int[] {posIntermediary[0] + x, posIntermediary[1] + y}) == null){
             //can create a node here
-            AStarNode tempNode = new AStarNode(this, posTarget, ((x+y == 1) ? 10 : 14), posIntermediary);
+            AStarNode tempNode = new AStarNode(this, new int[]{posIntermediary[0] + x, posIntermediary[1] + y}, posTarget, ((x+y == 1) ? 10 : 14), posIntermediary);
 
             setTile(new int[] {posIntermediary[0] + x, posIntermediary[1] + y}, tempNode);
             currentNodeList.add(tempNode);
           }
           else{
             //maybe node already exists, if it does, see if gCost can be decreased
-            if(getTile(new int[] {x, y}) instanceof AStarNode){
+            if(getTile(new int[] {posIntermediary[0] + x, posIntermediary[1] + y}) instanceof AStarNode){
               //is a node, try updating
               AStarNode currentNode = (AStarNode) getTile(posIntermediary);
-              AStarNode updateNode = (AStarNode) getTile(new int[] {x, y});
+              AStarNode updateNode = (AStarNode) getTile(new int[] {posIntermediary[0] + x, posIntermediary[1] + y});
               updateNode.updateCost(currentNode.getfCost() + ((x+y == 1) ? 10 : 14), currentNode.getPos());
             }
-            if(getTile(new int[] {x, y}).getPos()[0] == posTarget[0] && getTile(new int[] {x, y}).getPos()[1] == posTarget[1]){
+            if(getTile(new int[] {posIntermediary[0] + x, posIntermediary[1] + y}).getPos()[0] == posTarget[0] && getTile(new int[] {posIntermediary[0] + x, posIntermediary[1] + y}).getPos()[1] == posTarget[1]){
               //this is the target tile, return true
               //since tiles cannot overlap, will not update list to include target tile, only tile next to it
 
