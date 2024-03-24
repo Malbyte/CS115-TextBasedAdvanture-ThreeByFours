@@ -234,13 +234,13 @@ class level{
   }
 
   //returns an array of the shortest path from posA to posB.
-  //uses the A Star algorithm
+  //uses the A* algorithm
   public ArrayList<int[]> getPath(int posA[], int posB[]){
     ArrayList<AStarNode> currentNodeList = new ArrayList<AStarNode>();
     ArrayList<int[]> finalPath = new ArrayList<int[]>();
     //first start off before main loop by setting up all tiles surrounding posA
     //(since posA will contain an entity and therefore a node cannot coexist on this tile)
-    if(expandTile(currentNodeList, posA, posB)){
+    if(expandTilePath(currentNodeList, posA, posB)){
       //clear all tiles that may exist and return
       for(int i = 0; i < currentNodeList.size(); i++){
         this.setTile(currentNodeList.get(i).getPos(), null);
@@ -251,7 +251,9 @@ class level{
     //have initialized all nodes surrounding starting point. can now run main
     //algorithm loop
     while(true){
-      this.printMap();
+      //printmap tool to help debug and ensure pathing looks like how algorithm should behave
+      //this.printMap();
+
       //first start iteration by organizing the nodes to find least value.
       currentNodeList.sort(new AStarNodeComparator());
       int cheapestIndex = 0;
@@ -266,7 +268,7 @@ class level{
       }
 
       //afterwords, take the smallest node and expand off of it, check if it is adjacent
-      if(expandTile(currentNodeList, currentNodeList.get(cheapestIndex).getPos(), posB)){
+      if(expandTilePath(currentNodeList, currentNodeList.get(cheapestIndex).getPos(), posB)){
         //take current node, trace all previous cheapest nodes and put all into final returned array
         AStarNode tempNode = currentNodeList.get(cheapestIndex);
 
@@ -292,7 +294,7 @@ class level{
   }
 
   //returns true if one of the tiles is the target node
-  private Boolean expandTile(ArrayList<AStarNode> currentNodeList, int posIntermediary[], int posTarget[]){
+  private Boolean expandTilePath(ArrayList<AStarNode> currentNodeList, int posIntermediary[], int posTarget[]){
     for(int y = -1; y <= 1; y++){
       for(int x = -1; x <= 1; x++){
 
