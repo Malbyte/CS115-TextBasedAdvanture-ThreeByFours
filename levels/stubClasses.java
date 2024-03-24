@@ -286,13 +286,13 @@ class AStarNode extends entity{
   int gCost;            //this represents the cost of the path from the beginning to this tile
   int hCost;            //this represents the cost of the direct path from this tile to the end
   int fCost;            //this represents the total cost of the tile
-  int TargetNodePos[];  //this represents the target position to find the optimal route to
+  int targetNodePos[];  //this represents the target position to find the optimal route to
   int lastNodePos[];    //this represents the cheapest node connected to this; use this if this tile is apart of the chosen path to find the tile beforehand, retracing the program's steps
   //takes: level object reference, the position of the target, the tile's G cost (G cost is calculated via taking the last tile's G cost plus the direction's cost)
   AStarNode(level levelHWND, int posTargetNode[], int aTGC){
     super(levelHWND, 0, 0);
-    TargetNodePos[0] = posTargetNode[0];
-    TargetNodePos[1] = posTargetNode[1];
+    targetNodePos[0] = posTargetNode[0];
+    targetNodePos[1] = posTargetNode[1];
     gCost = aTGC;
 
     //calculate this new tile's h cost
@@ -302,7 +302,42 @@ class AStarNode extends entity{
 
   //this method calculates the tile's current Hcost from the given targetNode
   private void calcH(){
+    int deltaX = 0;
+    int deltaY = 0;
+    int deltaDiagonal = 0;
+    int deltaCardinal = 0;
 
+    //hard code diagonal as 14 and 10 in the cardinal directions
+    //on reading and watching about A* algorithm, this is the easiest and cheapest
+    //method for calculating the values
+
+    //first find the delta X and Y in terms of tiles from target
+    deltaX = Math.abs(this.getPos()[0] - targetNodePos[0]);
+    deltaY = Math.abs(this.getPos()[1] - targetNodePos[1]);
+
+
+    //doing it this convaluted looking way because doing a bunch of sqrts and then truncating
+    //could maybe cause weird cases with larger distances to cover.  besides, addition and subtraction is much faster overall
+    //(this method actually kind of reminds me how rasterizers draw lines lol, when they calculate their slope they do something kinda similar looking)
+
+    //gets the amount of tiles away from being directly diagonal, then the amount of diagonal tiles away
+    if(deltaX > deltaY){
+      //get the total amount of diagonal tiles away first
+      deltaCardinal = deltaX - deltaY;
+
+      //now get the total amount of cardinal tiles left
+      deltaDiagonal = deltaX - deltaCardinal;
+    }
+    else{
+      //get the total amount of cardinal tiles away first
+      deltaCardinal = deltaY - deltaX;
+
+      //now get the total amount of diagonal tiles left
+      deltaDiagonal = deltaY - deltaCardinal;
+    }
+
+    //now calculate the total cost of this tile from the target
+    hCost = (deltaDiagonal * 14) + (deltaCardinal * 10);
   }
 
 
