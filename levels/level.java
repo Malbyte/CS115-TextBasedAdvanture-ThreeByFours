@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Scanner;
 
 import java.io.*;
@@ -234,6 +236,66 @@ class level{
   //returns an array of the shortest path from posA to posB.
   //uses the A Star algorithm
   public int[] getPath(int posA[], int posB[]){
+    ArrayList<AStarNode> currentNodeList = new ArrayList<AStarNode>();
+    int[] finalPath = null;
+    //first start off before main loop by setting up all tiles surrounding posA
+    //(since posA will contain an entity and therefore a node cannot coexist on this tile)
+    if(expandTile(currentNodeList, posA, posB)){
+      return finalPath;
+    }
+    //have initialized all nodes surrounding starting point. can now run main
+    //algorithm loop
+    while(true){
+      //first start iteration by organizing the nodes to find least value.
+      currentNodeList.sort(new AStarNodeComparator());
 
+      //afterwords, take the smallest node and expand off of it, check if it is adjacent
+      if(expandTile(currentNodeList, posA, posB)){
+
+        break;
+      }
+    }
+
+    return finalPath;
+  }
+
+  //returns true if one of the tiles is the target node
+  private Boolean expandTile(ArrayList<AStarNode> currentNodeList, int posIntermediary[], int posTarget[]){
+    for(int y = -1; y <= 1; y++){
+      for(int x = -1; x <= 1; x++){
+
+        //go over all 9 tiles in area, if it is null, put a tile and it's initial value in
+        //first check if the current tile exists
+        if((posIntermediary[0] + x > 0 && posIntermediary[0] + x < this.curLevel.get(posIntermediary[1]+y).size()) && (posIntermediary[1] + y > 0 && posIntermediary[1] + y < this.curLevel.size())){
+          //tile exists!
+
+          //now check if tile is not occupied
+          if(getTile(new int[] {x, y}) == null){
+            //can create a node here
+            AStarNode tempNode = new AStarNode(this, posTarget, ((x+y == 1) ? 10 : 14), posIntermediary);
+
+            setTile(new int[] {posIntermediary[0] + x, posIntermediary[1] + y}, tempNode);
+            currentNodeList.add(tempNode);
+          }
+          else{
+            //maybe node already exists, if it does, see if gCost can be decreased
+            if(getTile(new int[] {x, y}) instanceof AStarNode){
+              //is a node, try updating
+              AStarNode currentNode = (AStarNode) getTile(posIntermediary);
+              AStarNode updateNode = (AStarNode) getTile(new int[] {x, y});
+              updateNode.updateCost(currentNode.getfCost() + ((x+y == 1) ? 10 : 14), currentNode.getPos());
+            }
+            if(getTile(new int[] {x, y}).getPos()[0] == posTarget[0] && getTile(new int[] {x, y}).getPos()[1] == posTarget[1]){
+              //this is the target tile, return true
+              //since tiles cannot overlap, will not update list to include target tile, only tile next to it
+
+              return true;
+            }
+          }
+        }
+      }
+    }
+
+    return false;
   }
 }

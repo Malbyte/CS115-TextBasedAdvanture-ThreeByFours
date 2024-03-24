@@ -1,3 +1,4 @@
+import java.util.Comparator;
 import java.util.Scanner;
 
 // These classes are temporary to allow me to set up the level class (which will become the general map object for the game)
@@ -283,16 +284,22 @@ class door extends entity{
 //this entity is the A-star node, will have to derive from entity so that it can easily, could make another abstract class that is named tile, allowing
 //this to be cleaner, but for now since it is like 1 am and I'm just writing code to later refactor and clean, this'll be fine
 class AStarNode extends entity{
-  int gCost;            //this represents the cost of the path from the beginning to this tile
-  int hCost;            //this represents the cost of the direct path from this tile to the end
-  int fCost;            //this represents the total cost of the tile
-  int targetNodePos[];  //this represents the target position to find the optimal route to
-  int lastNodePos[];    //this represents the cheapest node connected to this; use this if this tile is apart of the chosen path to find the tile beforehand, retracing the program's steps
+  private int gCost;            //this represents the cost of the path from the beginning to this tile
+  private int hCost;            //this represents the cost of the direct path from this tile to the end
+  private int fCost;            //this represents the total cost of the tile
+  private int targetNodePos[];  //this represents the target position to find the optimal route to
+  private int lastNodePos[];    //this represents the cheapest node connected to this; use this if this tile is apart of the chosen path to find the tile beforehand, retracing the program's steps
   //takes: level object reference, the position of the target, the tile's G cost (G cost is calculated via taking the last tile's G cost plus the direction's cost)
-  AStarNode(level levelHWND, int posTargetNode[], int aTGC){
+  AStarNode(level levelHWND, int posTargetNode[], int aTGC, int lastNodePos[]){
     super(levelHWND, 0, 0);
+
+    //set target node position
     targetNodePos[0] = posTargetNode[0];
     targetNodePos[1] = posTargetNode[1];
+
+    //set starter last node position
+    this.lastNodePos[0] = lastNodePos[0];
+    this.lastNodePos[1] = lastNodePos[1];
     gCost = aTGC;
 
     //calculate this new tile's h cost
@@ -340,6 +347,20 @@ class AStarNode extends entity{
     hCost = (deltaDiagonal * 14) + (deltaCardinal * 10);
   }
 
+  //checks if new gCost is less than original, if so update
+  public void updateCost(int newGCost, int lastNodePos[]){
+    if(gCost > newGCost){
+      //new value is cheaper, this is a better route therefore
+
+      //update last node position as this one is better
+      this.lastNodePos[0] = lastNodePos[0];
+      this.lastNodePos[1] = lastNodePos[1];
+
+      //set new values and calculate new costs
+      gCost = newGCost;
+      fCost = gCost + hCost;
+    }
+  }
 
   //useless functions required by the entity class for this subclass to exist...
   //gotta change the level's array from entity class, to a tile class with entity class being a subclass of tile.
@@ -355,5 +376,22 @@ class AStarNode extends entity{
   @Override
   public void drawEntity() {
     System.out.printf("EE");
+  }
+
+  public int getfCost() {
+      return fCost;
+  }
+  public int getgCost() {
+      return gCost;
+  }
+}
+
+//class to implement a custom comparison for the object class AStarNode, used in the A star algorithm
+class AStarNodeComparator implements Comparator<AStarNode>{
+  @Override
+  public int compare(AStarNode o1, AStarNode o2) {
+    if(o1.getfCost() == o2.getfCost())
+      return 0;
+    return (o1.getfCost() - o2.getfCost() > 0) ? 1 : -1;
   }
 }
