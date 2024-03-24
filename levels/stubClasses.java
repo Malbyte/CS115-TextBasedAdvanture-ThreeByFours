@@ -284,11 +284,12 @@ class door extends entity{
 //this entity is the A-star node, will have to derive from entity so that it can easily, could make another abstract class that is named tile, allowing
 //this to be cleaner, but for now since it is like 1 am and I'm just writing code to later refactor and clean, this'll be fine
 class AStarNode extends entity{
-  private int gCost;            //this represents the cost of the path from the beginning to this tile
-  private int hCost;            //this represents the cost of the direct path from this tile to the end
-  private int fCost;            //this represents the total cost of the tile
-  private int targetNodePos[];  //this represents the target position to find the optimal route to
-  private int lastNodePos[];    //this represents the cheapest node connected to this; use this if this tile is apart of the chosen path to find the tile beforehand, retracing the program's steps
+  private int gCost = 0;               //this represents the cost of the path from the beginning to this tile
+  private int hCost = 0;               //this represents the cost of the direct path from this tile to the end
+  private int fCost = 0;               //this represents the total cost of the tile
+  private int targetNodePos[] = null;  //this represents the target position to find the optimal route to
+  private int lastNodePos[] = null;    //this represents the cheapest node connected to this; use this if this tile is apart of the chosen path to find the tile beforehand, retracing the program's steps
+
   //takes: level object reference, the position of the target, the tile's G cost (G cost is calculated via taking the last tile's G cost plus the direction's cost)
   AStarNode(level levelHWND, int posTargetNode[], int aTGC, int lastNodePos[]){
     super(levelHWND, 0, 0);
@@ -383,6 +384,9 @@ class AStarNode extends entity{
   }
   public int getgCost() {
       return gCost;
+  }
+  public int[] getLastNodePos() {
+      return lastNodePos;
   }
 }
 

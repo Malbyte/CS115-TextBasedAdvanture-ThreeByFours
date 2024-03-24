@@ -235,13 +235,13 @@ class level{
 
   //returns an array of the shortest path from posA to posB.
   //uses the A Star algorithm
-  public int[] getPath(int posA[], int posB[]){
+  public ArrayList<int[]> getPath(int posA[], int posB[]){
     ArrayList<AStarNode> currentNodeList = new ArrayList<AStarNode>();
-    int[] finalPath = null;
+    ArrayList<int[]> finalPath = new ArrayList<int[]>();
     //first start off before main loop by setting up all tiles surrounding posA
     //(since posA will contain an entity and therefore a node cannot coexist on this tile)
     if(expandTile(currentNodeList, posA, posB)){
-      return finalPath;
+      return null;
     }
     //have initialized all nodes surrounding starting point. can now run main
     //algorithm loop
@@ -250,10 +250,20 @@ class level{
       currentNodeList.sort(new AStarNodeComparator());
 
       //afterwords, take the smallest node and expand off of it, check if it is adjacent
-      if(expandTile(currentNodeList, posA, posB)){
+      if(expandTile(currentNodeList, currentNodeList.get(0).getPos(), posB)){
+        //take current node, trace all previous cheapest nodes and put all into final returned array
+        AStarNode tempNode = currentNodeList.get(0);
+
+        while(tempNode.getLastNodePos() != null){
+          finalPath.add(tempNode.getPos());
+
+          //update the tempNode
+          tempNode = (AStarNode) getTile(tempNode.getLastNodePos());
+        }
 
         break;
       }
+      //if not reached goal, expand the next cheapest node
     }
 
     return finalPath;
