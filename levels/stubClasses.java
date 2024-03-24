@@ -289,7 +289,7 @@ class AStarNode extends entity{
   private int fCost = 0;               //this represents the total cost of the tile
   private int targetNodePos[] = {-1, -1};  //this represents the target position to find the optimal route to
   private int lastNodePos[] = {-1, -1};    //this represents the cheapest node connected to this; use this if this tile is apart of the chosen path to find the tile beforehand, retracing the program's steps
-
+  private Boolean Locked = false;
   //takes: level object reference, the position of the target, the tile's G cost (G cost is calculated via taking the last tile's G cost plus the direction's cost)
   AStarNode(level levelHWND, int nodePos[], int posTargetNode[], int aTGC, int lastNodePos[]){
     super(levelHWND, 0, 0);
@@ -376,7 +376,7 @@ class AStarNode extends entity{
   }
   @Override
   public void drawEntity() {
-    System.out.printf("EE");
+    System.out.printf("()");
   }
 
   public int getfCost() {
@@ -387,6 +387,12 @@ class AStarNode extends entity{
   }
   public int[] getLastNodePos() {
       return lastNodePos;
+  }
+  public Boolean getLocked() {
+      return Locked;
+  }
+  public void setLocked(Boolean locked) {
+      Locked = locked;
   }
 }
 

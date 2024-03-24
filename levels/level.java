@@ -254,11 +254,21 @@ class level{
       this.printMap();
       //first start iteration by organizing the nodes to find least value.
       currentNodeList.sort(new AStarNodeComparator());
+      int cheapestIndex = 0;
+      //find cheapest node that is not locked
+      for(cheapestIndex = cheapestIndex; cheapestIndex < currentNodeList.size(); cheapestIndex++){
+        if(currentNodeList.get(cheapestIndex).getLocked() == false){
+          //lock it so it won't be selected again
+          currentNodeList.get(cheapestIndex).setLocked(true);
+
+          break;
+        }
+      }
 
       //afterwords, take the smallest node and expand off of it, check if it is adjacent
-      if(expandTile(currentNodeList, currentNodeList.get(0).getPos(), posB)){
+      if(expandTile(currentNodeList, currentNodeList.get(cheapestIndex).getPos(), posB)){
         //take current node, trace all previous cheapest nodes and put all into final returned array
-        AStarNode tempNode = currentNodeList.get(0);
+        AStarNode tempNode = currentNodeList.get(cheapestIndex);
 
         while((tempNode.getLastNodePos()[0] != posA[0]) || (tempNode.getLastNodePos()[1] != posA[1])){
           finalPath.add(tempNode.getPos());
