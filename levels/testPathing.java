@@ -13,7 +13,7 @@ public class testPathing {
       return;
     }
     //test getPath method
-    curLevel.getPath(new int[]{1, 1}, new int[] {11, 13});
+    //curLevel.getPath(new int[]{1, 1}, new int[] {11, 13});
 
 
     //after loading map, enter main game loop

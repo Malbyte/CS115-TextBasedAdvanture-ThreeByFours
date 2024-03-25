@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Scanner;
 
 import java.io.*;
@@ -15,13 +13,15 @@ class level{
     EMPTY,
     PLAYER,
     WALL,
-    DOOR
+    DOOR,
+    CHEST,
+    SQUELICKLY  //really weak skeleton enemy, just a test enemy entity
   };
 
 
   ///// map variables /////
 	// assumes the top left is the origin point, <0, 0>
-  entity player = new player(this, STARTINGPLAYERHEALTH, STARTINGPLAYERDAMAGE);
+  private player player = new player(this, STARTINGPLAYERHEALTH, STARTINGPLAYERDAMAGE);
 
 	private ArrayList<ArrayList<entity>> curLevel;
   /////////////////////////
@@ -106,7 +106,7 @@ class level{
         subLine = subLine.replace(" ", "");
 
         //find entity that is recieving argument
-        for(i = i; i < curLevel.get(currentIndex).size(); i++){
+        for(; i < curLevel.get(currentIndex).size(); i++){
           if(curLevel.get(currentIndex).get(i).takesArgument()){
             //found corrosponding entity, give argument and continue variable assignments
             curLevel.get(currentIndex).get(i++).assignArgument(subLine);
@@ -144,28 +144,33 @@ class level{
     switch (id) {
       case EMPTY:
         //empty tile, leave entity as null therefore
+        curLevel.get(currentIndex).add(tempEntity);
 
-        break;
+        return;
       case PLAYER:
         //instead of creating a new instance, set the position of the player here and have a reference to the object!
         tempEntity = player;
-        tempEntity.setPos(new int[] {curLevel.get(currentIndex).size(), currentIndex});
 
         break;
         case WALL:
         tempEntity = new wall(this);
-        tempEntity.setPos(new int[] {curLevel.get(currentIndex).size(), currentIndex});
 
         break;
         case DOOR:
         tempEntity = new door(this);
-        tempEntity.setPos(new int[] {curLevel.get(currentIndex).size(), currentIndex});
+
+        break;
+        case CHEST:
+          tempEntity = new chest(this);
+        break;
+        case SQUELICKLY:
 
         break;
       default:
         //unkown entity, draw error entity
         break;
     }
+    tempEntity.setPos(new int[] {curLevel.get(currentIndex).size(), currentIndex});
     curLevel.get(currentIndex).add(tempEntity);
   }
 	//prints the current map to the screen
@@ -224,7 +229,7 @@ class level{
   }
 
   //returns reference to player object
-  public entity getPlayer() {
+  public player getPlayer() {
       return player;
   }
 
@@ -258,7 +263,7 @@ class level{
       currentNodeList.sort(new AStarNodeComparator());
       int cheapestIndex = 0;
       //find cheapest node that is not locked
-      for(cheapestIndex = cheapestIndex; cheapestIndex < currentNodeList.size(); cheapestIndex++){
+      for(; cheapestIndex < currentNodeList.size(); cheapestIndex++){
         if(currentNodeList.get(cheapestIndex).getLocked() == false){
           //lock it so it won't be selected again
           currentNodeList.get(cheapestIndex).setLocked(true);

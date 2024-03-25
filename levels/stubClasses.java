@@ -1,6 +1,8 @@
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Random;
 import java.util.Scanner;
-
+import java.util.random.*;
 // These classes are temporary to allow me to set up the level class (which will become the general map object for the game)
 // note: none of these are at all final designs of the classes; this is merely to have a gist of what it may look like
 
@@ -102,15 +104,26 @@ abstract class entity{
   }
 }
 
-
+//stub class for items, replace with teammates item class
+class item{
+  String itemName;
+  public item(String name){
+    itemName = name;
+  }
+  public String getItemName() {
+      return itemName;
+  }
+}
 
 class player extends entity{
-  Scanner keyboard;
+  private ArrayList<item> inventory;
+  private Scanner keyboard;
   // constructor
   public player(level levelHWND, double health, double damage){
     //set up generic variables
     super(levelHWND, health, damage);
 
+    inventory = new ArrayList<item>();
     keyboard = new Scanner(System.in);
   }
 
@@ -120,16 +133,21 @@ class player extends entity{
     //gets user inputs
 
     while(true){
+      System.out.printf("> ");
       line = keyboard.nextLine();
       if(processInput(line)){
         break;
       }
+      //if not exiting, turn has not finished, reprint screen
+      System.out.printf("\033[H\033[2J");
+      getLevelHWND().printMap();
     }
   }
 
   // processes a given input
   private Boolean processInput(String line){
     switch (line.split(" ")[0].toLowerCase()) {
+      case "m":
       case "go":
         //process go command...
         switch (line.split(" ")[1].toLowerCase()) {
@@ -155,6 +173,8 @@ class player extends entity{
             break;
         }
         return true;
+
+      case "int":
       case "interact":
       entity temp = null;
       switch (line.split(" ")[1].toLowerCase()) {
@@ -192,9 +212,24 @@ class player extends entity{
         System.out.println("Press enter to continue...");
         keyboard.nextLine();
 
-      return true;
+        break;
       //add other cases, etc...
+      case "i":
+      case "inv":
+      case "inventory":
+        this.accessInventory();
+
+        //break so the user does not waste a turn in their inventory
+        break;
+
+      case "command":
+      case "commands":
+      case "?":
+        printCommands();
+
+        break;
       default:
+
         //print an error message and get another input or something
 
         break;
@@ -215,6 +250,81 @@ class player extends entity{
   @Override
   public void drawEntity() {
       System.out.printf("o/");
+  }
+
+  //add item class to inventory
+  public void addInventory(item in){
+    inventory.add(in);
+  }
+
+  //finds and removes item from inventory
+  private Boolean removeInventory(String itemName){
+    for(int i = 0; i < inventory.size(); i++){
+      if(inventory.get(i).getItemName().matches(itemName)){
+        inventory.remove(i);
+
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public ArrayList<item> getInventory() {
+      return inventory;
+  }
+  private void accessInventory(){
+    printInventory();
+    String line;
+    System.out.printf("> ");
+    line = keyboard.nextLine();
+    while(!line.matches("exit")){
+      switch (line.split(" ")[0].toLowerCase()) {
+
+        case "setweapon":
+        case "switchweapon":
+        case "sw":
+          //set weapon
+
+          break;
+
+        case "us":
+        case "use":
+          //perform's items interact method
+
+          break;
+
+        case "rm":
+        case "del":
+          removeInventory(line.substring(line.indexOf(" ") + 1));
+
+          break;
+
+        default:
+          //unknown command
+          break;
+      }
+      printInventory();
+
+      System.out.printf("> ");
+      line = keyboard.nextLine();
+    }
+  }
+  public void printInventory(){
+    System.out.printf("\033[H\033[2J");
+    System.out.printf("Inventory:\n");
+    for(int i = 0; i < inventory.size(); i++){
+      System.out.println(inventory.get(i).getItemName());
+    }
+  }
+  public void printCommands(){
+    //prints all user commands ingame
+    System.out.printf("\033[H\033[2J");
+    System.out.println("go(m) - move one tile in a given direction\nexamples:\tgo left\n\t\tgo upright\n\t\tgo rightup");
+    System.out.println("interact(int) - interact any tile next to the player\nexamples:\tinteract left\n\t\tinteract upright\n\t\tinteract rightup");
+    System.out.println("inventory(i) - access the player's inventory");
+
+    System.out.printf("Press enter to continue...\n");
+    keyboard.nextLine();
   }
 }
 
@@ -278,6 +388,81 @@ class door extends entity{
   public Boolean takesArgument(){
 
     return true;
+  }
+}
+
+//this represents a basic enemy that chases the player if they are
+//within a certain range
+//for now this example will be of a skeleton
+class enemy extends entity{
+  private enum enemyState{
+    WANDER,
+    CHASE
+  };
+  private enemyState curState = enemyState.WANDER;
+  public enemy(level levelHWND, int pos[], double health, double damage){
+    super(levelHWND, health, damage, pos);
+  }
+  @Override
+  protected void interact() {
+    //read stats, allow player to input another thing maybe or smthn, idk
+  }
+  @Override
+  public void update() {
+    switch (curState) {
+      case WANDER:
+        //check if player is within "eyesight" or range (need level method to first check distance, then check if there is a tile in the way of line of sight)
+
+        //generate a random #, between 1-9, if 5 stay in place ofc
+        Random randomizer = new Random();
+        int offset[] = {(randomizer.nextInt(1, 10)%3) - 1,  (randomizer.nextInt(1, 10)/3) - 1};
+        moveEntity(offset);
+
+
+        break;
+      case CHASE:
+        //check if player is still within range
+
+        //if so, use pathing method to get the next tile (expensive to do, but otherwise the enemy won't update when player updates)
+
+        //first get updated array of pathing to player
+        getLevelHWND().getPath(getLevelHWND().getPlayer().getPos(), getPos());
+
+        break;
+    }
+  }
+  @Override
+  public void drawEntity() {
+    System.out.printf("\\s");
+  }
+}
+
+/*
+//this represents a dungeon trap, such as moving saw blades, hidden traps, etc
+class trap extends entity{
+
+}
+*/
+
+//this represents a loot chest that can be found, allowing the player to get a new item(s)
+class chest extends entity{
+  public chest(level levelHWND){
+    //since it cannot take damage, health and damage is set to 0
+    super(levelHWND, 0, 0);
+  }
+  @Override
+  protected void interact() {
+    //open chest and write to inventory
+    getLevelHWND().getPlayer().addInventory(new item("TEST ITEM"));
+    getLevelHWND().setTile(getPos(), null);
+  }
+  @Override
+  public void update() {
+      //chest won't do anything on update
+  }
+  @Override
+  public void drawEntity() {
+      System.out.printf("CH");
   }
 }
 
