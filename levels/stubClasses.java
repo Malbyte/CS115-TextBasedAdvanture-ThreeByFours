@@ -422,7 +422,7 @@ class enemy extends entity{
     WANDER,
     CHASE
   };
-  private enemyState curState = enemyState.WANDER;
+  private enemyState curState = enemyState.CHASE;
   public enemy(level levelHWND, double health, double damage){
     super(levelHWND, health, damage);
   }
@@ -450,10 +450,29 @@ class enemy extends entity{
         //if so, use pathing method to get the next tile (expensive to do, but otherwise the enemy won't update when player updates)
 
         //first get updated array of pathing to player
-        getLevelHWND().getPath(getLevelHWND().getPlayer().getPos(), getPos());
+        ArrayList<int[]> path = getLevelHWND().getPath(getLevelHWND().getPlayer().getPos(), getPos());
+        //first check that there still exists a path, if not then can attack
+        if(path == null){
+          //attack player
 
+          break;
+        }
+        if(getLevelHWND().moveTile(getPos(), path.get(0))){
+          setPos(path.get(0));
+        }
         break;
     }
+  }
+  @Override
+  public void assignArgument (String arg){
+    //take the two ints with a delimeter of |, first is health, second is attack
+    setHealth(Double.parseDouble(arg.split("|")[0]));
+    setDamage(Double.parseDouble(arg.split("|")[2]));
+  }
+  @Override
+  public Boolean takesArgument(){
+
+    return true;
   }
   @Override
   public void drawEntity() {

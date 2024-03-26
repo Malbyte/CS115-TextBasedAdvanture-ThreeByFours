@@ -107,7 +107,8 @@ class level{
 
         //find entity that is recieving argument
         for(; i < curLevel.get(currentIndex).size(); i++){
-          if(curLevel.get(currentIndex).get(i).takesArgument()){
+
+          if(curLevel.get(currentIndex).get(i) != null  && curLevel.get(currentIndex).get(i).takesArgument()){
             //found corrosponding entity, give argument and continue variable assignments
             curLevel.get(currentIndex).get(i++).assignArgument(subLine);
 
@@ -257,7 +258,7 @@ class level{
     //algorithm loop
     while(true){
       //printmap tool to help debug and ensure pathing looks like how algorithm should behave
-      //this.printMap();
+      this.printMap();
 
       //first start iteration by organizing the nodes to find least value.
       currentNodeList.sort(new AStarNodeComparator());
@@ -271,6 +272,18 @@ class level{
           break;
         }
       }
+
+
+      //no more tiles exist, no possible pathing!
+      if(cheapestIndex == currentNodeList.size()){
+        //clear all tiles that may exist and return
+      for(int i = 0; i < currentNodeList.size(); i++){
+        this.setTile(currentNodeList.get(i).getPos(), null);
+      }
+
+        return null;
+      }
+
 
       //afterwords, take the smallest node and expand off of it, check if it is adjacent
       if(expandTilePath(currentNodeList, currentNodeList.get(cheapestIndex).getPos(), posB)){
