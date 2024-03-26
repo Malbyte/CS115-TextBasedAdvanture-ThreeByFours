@@ -7,6 +7,7 @@ import java.util.random.*;
 // note: none of these are at all final designs of the classes; this is merely to have a gist of what it may look like
 
 abstract class entity{
+  private Boolean hasUpdated;
   private level levelHWND;
   private double health;
   private double damage;
@@ -22,6 +23,8 @@ abstract class entity{
       this.pos[0] = pos[0];
       this.pos[1] = pos[1];
     }
+
+    hasUpdated = false;
   }
 
   public entity(level levelHWND, double health, double damage){
@@ -30,6 +33,8 @@ abstract class entity{
     this.damage = damage;
     //entity will need position to be specified later with a set method
     this.pos = null;
+
+    hasUpdated = false;
   }
   ////////////////////////
 
@@ -81,6 +86,9 @@ abstract class entity{
   public void setPos(int[] pos) {
       this.pos = pos;
   }
+  public void setHasUpdated(Boolean hasUpdated) {
+      this.hasUpdated = hasUpdated;
+  }
   //////////////////////////
 
   ///// getter methods /////
@@ -95,6 +103,9 @@ abstract class entity{
   }
   protected level getLevelHWND() {
       return levelHWND;
+  }
+  public Boolean getHasUpdated() {
+      return hasUpdated;
   }
   //////////////////////////
 
@@ -115,6 +126,9 @@ class item{
   }
 }
 
+//TODO:
+//for user inputs, if expecting there to be a second command argument, need either try catch block for exceptions for out of bounds or check the array length returned from the split command to see if there is a second one
+//if not, then retry for user input
 class player extends entity{
   private ArrayList<item> inventory;
   private Scanner keyboard;
@@ -151,18 +165,22 @@ class player extends entity{
       case "go":
         //process go command...
         switch (line.split(" ")[1].toLowerCase()) {
+          case "u":
           case "up":
             moveEntity(new int[] {0, 1});
 
             break;
+          case "d":
           case "down":
             moveEntity(new int[] {0, -1});
 
             break;
+          case "l":
           case "left":
             moveEntity(new int[] {1, 0});
 
             break;
+          case "r":
           case "right":
             moveEntity(new int[] {-1, 0});
 
@@ -174,7 +192,7 @@ class player extends entity{
         }
         return true;
 
-      case "int":
+      case "i":
       case "interact":
       entity temp = null;
       switch (line.split(" ")[1].toLowerCase()) {
@@ -214,7 +232,6 @@ class player extends entity{
 
         break;
       //add other cases, etc...
-      case "i":
       case "inv":
       case "inventory":
         this.accessInventory();
@@ -228,7 +245,11 @@ class player extends entity{
         printCommands();
 
         break;
-      default:
+      case "exit":
+        System.exit(0);
+        //game closes here
+
+        default:
 
         //print an error message and get another input or something
 
@@ -298,7 +319,9 @@ class player extends entity{
           removeInventory(line.substring(line.indexOf(" ") + 1));
 
           break;
+        case "e":
 
+          return;
         default:
           //unknown command
           break;
@@ -400,8 +423,8 @@ class enemy extends entity{
     CHASE
   };
   private enemyState curState = enemyState.WANDER;
-  public enemy(level levelHWND, int pos[], double health, double damage){
-    super(levelHWND, health, damage, pos);
+  public enemy(level levelHWND, double health, double damage){
+    super(levelHWND, health, damage);
   }
   @Override
   protected void interact() {
@@ -415,7 +438,8 @@ class enemy extends entity{
 
         //generate a random #, between 1-9, if 5 stay in place ofc
         Random randomizer = new Random();
-        int offset[] = {(randomizer.nextInt(1, 10)%3) - 1,  (randomizer.nextInt(1, 10)/3) - 1};
+        int tile = randomizer.nextInt(0, 9);
+        int offset[] = {(tile % 3) - 1,  (tile / 3) - 1};
         moveEntity(offset);
 
 

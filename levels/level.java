@@ -164,7 +164,7 @@ class level{
           tempEntity = new chest(this);
         break;
         case SQUELICKLY:
-
+          tempEntity = new enemy(this, 1, 0);
         break;
       default:
         //unkown entity, draw error entity
