@@ -1,7 +1,11 @@
 #this is a comment.
 #this example map assumes that the player is id 1, and a basic wall is id 2
 2, 2, 2, 2, 2
-2, 0, 0, 0, 2
 2, 1, 0, 0, 2
+2, 0, 0, 0, 2
+2, 0, 0, 0, 2
+2, 2, 3, 2, 2	"example2.lmp"
+2, 2, 0, 2, 2
+2, 0, 0, 0, 2
 2, 0, 0, 0, 2
 2, 2, 2, 2, 2
