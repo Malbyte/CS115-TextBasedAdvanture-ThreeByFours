@@ -1,10 +1,12 @@
+package entities;
 import java.util.ArrayList;
 import java.util.Random;
 
+import levels.*;
 //this represents a basic enemy that chases the player if they are
 //within a certain range
 //for now this example will be of a skeleton
-class enemy extends entity{
+public class enemy extends entity{
   private enum enemyState{
     WANDER,
     CHASE

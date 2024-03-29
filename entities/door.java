@@ -1,4 +1,8 @@
-class door extends entity{
+package entities;
+
+import levels.*;
+
+public class door extends entity{
   String targetRoom = null;
 
   public door(level levelHWND){

@@ -1,3 +1,5 @@
+package items;
+
 public class ItemGenerator {
 	// Main method for testing purposes
 	public static void main(String[] args) {

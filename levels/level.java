@@ -1,9 +1,11 @@
+package levels;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import java.io.*;
 
-class level{
+import entities.*;
+
+public class level{
   // const definitions
   private final int STARTINGPLAYERHEALTH = 5;  //this represents how much health the player starts with
   private final int STARTINGPLAYERDAMAGE = 1;  //this represents how much damage the player's fists deal at the beginning
@@ -50,7 +52,7 @@ class level{
 
 
 		//try to open given file
-		fp = new File(mapName);
+		fp = new File(String.join("", "levels/", mapName));
 
 
 		//if file does not exist, return false
@@ -258,7 +260,7 @@ class level{
     //algorithm loop
     while(true){
       //printmap tool to help debug and ensure pathing looks like how algorithm should behave
-      this.printMap();
+      //this.printMap();
 
       //first start iteration by organizing the nodes to find least value.
       currentNodeList.sort(new AStarNodeComparator());

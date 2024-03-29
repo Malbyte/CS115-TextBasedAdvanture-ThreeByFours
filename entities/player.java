@@ -1,10 +1,14 @@
+package entities;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import levels.*;
+import items.item;
 
 //TODO:
 //for user inputs, if expecting there to be a second command argument, need either try catch block for exceptions for out of bounds or check the array length returned from the split command to see if there is a second one
 //if not, then retry for user input
-class player extends entity{
+public class player extends entity{
   private ArrayList<item> inventory;
   private Scanner keyboard;
   // constructor

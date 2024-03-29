@@ -1,4 +1,7 @@
-abstract class entity{
+package entities;
+import levels.*;
+
+public abstract class entity{
   private Boolean hasUpdated;
   private level levelHWND;
   private double health;

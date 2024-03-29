@@ -1,3 +1,6 @@
+import levels.level;
+import entities.*;
+
 public class testPathing {
   public static void main(String[] args){
     String startingMap = "example3.lmp";

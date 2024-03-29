@@ -1,8 +1,10 @@
-import java.util.Comparator;
+package entities;
+
+import levels.*;
 
 //this entity is the A-star node, will have to derive from entity so that it can easily, could make another abstract class that is named tile, allowing
 //this to be cleaner, but for now since it is like 1 am and I'm just writing code to later refactor and clean, this'll be fine
-class AStarNode extends entity{
+public class AStarNode extends entity{
   private int gCost = 0;               //this represents the cost of the path from the beginning to this tile
   private int hCost = 0;               //this represents the cost of the direct path from this tile to the end
   private int fCost = 0;               //this represents the total cost of the tile
@@ -10,7 +12,7 @@ class AStarNode extends entity{
   private int lastNodePos[] = {-1, -1};    //this represents the cheapest node connected to this; use this if this tile is apart of the chosen path to find the tile beforehand, retracing the program's steps
   private Boolean Locked = false;
   //takes: level object reference, the position of the target, the tile's G cost (G cost is calculated via taking the last tile's G cost plus the direction's cost)
-  AStarNode(level levelHWND, int nodePos[], int posTargetNode[], int aTGC, int lastNodePos[]){
+  public AStarNode(level levelHWND, int nodePos[], int posTargetNode[], int aTGC, int lastNodePos[]){
     super(levelHWND, 0, 0);
     this.setPos(nodePos);
     //set target node position
@@ -112,15 +114,5 @@ class AStarNode extends entity{
   }
   public void setLocked(Boolean locked) {
       Locked = locked;
-  }
-}
-
-//class to implement a custom comparison for the object class AStarNode, used in the A star algorithm
-class AStarNodeComparator implements Comparator<AStarNode>{
-  @Override
-  public int compare(AStarNode o1, AStarNode o2) {
-    if(o1.getfCost() == o2.getfCost())
-      return 0;
-    return (o1.getfCost() - o2.getfCost() > 0) ? 1 : -1;
   }
 }

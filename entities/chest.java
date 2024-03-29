@@ -1,5 +1,10 @@
+package entities;
+
+import levels.*;
+import items.item;
+
 //this represents a loot chest that can be found, allowing the player to get a new item(s)
-class chest extends entity{
+public class chest extends entity{
   public chest(level levelHWND){
     //since it cannot take damage, health and damage is set to 0
     super(levelHWND, 0, 0);

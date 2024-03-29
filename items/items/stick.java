@@ -1,3 +1,4 @@
+package items;
 public class stick extends item {
 	//////////////////////////////////////////////////////////////////////////
 	// basic template for a specific item class without any extra functions

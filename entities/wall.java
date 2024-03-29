@@ -1,4 +1,8 @@
-class wall extends entity{
+package entities;
+
+import levels.*;
+
+public class wall extends entity{
   public wall(level levelHWND){
     //set up generic variables
     //wall is unkillable (not breakable) and won't hurt you
