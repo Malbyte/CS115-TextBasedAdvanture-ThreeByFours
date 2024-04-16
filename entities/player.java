@@ -218,6 +218,10 @@ public class player extends entity{
       System.out.println(inventory.get(i).getName());
     }
   }
+  public void upgradeInventory(int invIndex) {
+	  // This method allows for the anvil entity to access the upgrade function of an item in the private inventory ArrayList
+	  inventory.get(invIndex).upgrade();
+  }
   public void printCommands(){
     //prints all user commands ingame
     System.out.printf("\033[H\033[2J");
