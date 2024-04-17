@@ -17,7 +17,8 @@ public class level{
     WALL,
     DOOR,
     CHEST,
-    SQUELICKLY  //really weak skeleton enemy, just a test enemy entity
+    SQUELICKLY,  //really weak skeleton enemy, just a test enemy entity
+    ANVIL
   };
 
 
@@ -168,6 +169,9 @@ public class level{
         break;
         case SQUELICKLY:
           tempEntity = new enemy(this, 1, 0);
+        break;
+        case SQUELICKLY:
+		  tempEntity = new anvil(this);
         break;
       default:
         //unkown entity, draw error entity
