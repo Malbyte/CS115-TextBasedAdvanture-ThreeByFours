@@ -3,6 +3,10 @@ import levels.*;
 import items.item;
 
 public class anvil extends entity {
+	public anvil(level levelHWND){
+	    //since it cannot take damage, health and damage is set to 0
+	    super(levelHWND, 0, 0);
+  }
 	@Override
 	protected void interact() {
 		// select item to upgrade
