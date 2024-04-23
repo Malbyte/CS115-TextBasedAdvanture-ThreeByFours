@@ -13,7 +13,7 @@ public class anvil extends entity {
 	protected void interact() {
 		// select item to upgrade
 		ArrayList<item> inv = getLevelHWND().getPlayer().getInventory();
-		for (int i; i < inv.length(); i++)
+		for (int i = 0; i < inv.size(); i++)
 			System.out.println(i + "\t" + inv.get(i).getName()); // prints out the inventory with indexes
 		System.out.println("Input the number of the item you wish to upgrade.");
 		Scanner keys = new Scanner(System.in);

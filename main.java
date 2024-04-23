@@ -1,4 +1,6 @@
 import levels.*;
+import entities.anvil; // This line seems redundant, but it is required for it to run
+import entities.AStarNodeComparator; // This one too
 import entities.*;
 
 public class main {
@@ -6,7 +8,7 @@ public class main {
 		// Level and Entity setup
 		level curLevel = new level();
 		entity curEntity = null;
-		final String startingMap = "example.lmp";
+		final String startingMap = "example3.lmp";
 
 		// load the beginning level
 		if(!curLevel.loadMap(startingMap)){
