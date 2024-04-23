@@ -170,7 +170,7 @@ public class level{
         case SQUELICKLY:
           tempEntity = new enemy(this, 1, 0);
         break;
-        case SQUELICKLY:
+        case ANVIL:
 		  tempEntity = new anvil(this);
         break;
       default:

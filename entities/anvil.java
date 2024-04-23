@@ -1,6 +1,8 @@
+package entities;
 import java.util.Scanner;
 import levels.*;
 import items.item;
+import java.util.ArrayList;
 
 public class anvil extends entity {
 	public anvil(level levelHWND){
@@ -10,9 +12,9 @@ public class anvil extends entity {
 	@Override
 	protected void interact() {
 		// select item to upgrade
-		Arraylist<item> inv = getLevelHWND().getPlayer().getInventory();
-		for (int i; i < inv.length; i++)
-			System.out.println(i + "\t" + inv.getName()); // prints out the inventory with indexes
+		ArrayList<item> inv = getLevelHWND().getPlayer().getInventory();
+		for (int i; i < inv.length(); i++)
+			System.out.println(i + "\t" + inv.get(i).getName()); // prints out the inventory with indexes
 		System.out.println("Input the number of the item you wish to upgrade.");
 		Scanner keys = new Scanner(System.in);
 		int index = keys.nextInt();
@@ -21,7 +23,10 @@ public class anvil extends entity {
 		getLevelHWND().setTile(getPos(), null);
 	}
 	@Override
-	protected void drawEntity() {
+	public void drawEntity() {
 		System.out.printf("#>");
+	}
+	public void update() {
+		// do nothing
 	}
 }
