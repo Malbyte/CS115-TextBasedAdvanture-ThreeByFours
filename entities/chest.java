@@ -1,7 +1,9 @@
 package entities;
 
+import java.util.Random;
 import levels.*;
 import items.item;
+import items.ItemGenerator;
 
 //this represents a loot chest that can be found, allowing the player to get a new item(s)
 public class chest extends entity{
@@ -11,8 +13,11 @@ public class chest extends entity{
   }
   @Override
   protected void interact() {
+	// generator to make random item
+	Random gen = new Random();
     //open chest and write to inventory
-    getLevelHWND().getPlayer().addInventory(new item(-1, -1, -1, "TEST ITEM"));
+    item pickUpItem = ItemGenerator.generate((gen.nextInt() % 4));
+    getLevelHWND().getPlayer().addInventory(pickUpItem);
     getLevelHWND().setTile(getPos(), null);
   }
   @Override
