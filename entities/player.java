@@ -75,18 +75,22 @@ public class player extends entity{
       case "interact":
       entity temp = null;
       switch (line.split(" ")[1].toLowerCase()) {
+        case "u":
         case "up":
           temp = getLevelHWND().getTile(new int[] {getPos()[0] + 0, getPos()[1] - 1});
 
           break;
+        case "d":
         case "down":
           temp = getLevelHWND().getTile(new int[] {getPos()[0] + 0, getPos()[1] + 1});
 
           break;
+        case "l":
         case "left":
           temp = getLevelHWND().getTile(new int[] {getPos()[0] - 1, getPos()[1] + 0});
 
           break;
+        case "r":
         case "right":
           temp = getLevelHWND().getTile(new int[] {getPos()[0] + 1, getPos()[1] + 0});
 
@@ -229,6 +233,7 @@ public class player extends entity{
     System.out.println("go(m) - move one tile in a given direction\nexamples:\tgo left\n\t\tgo upright\n\t\tgo rightup");
     System.out.println("interact(int) - interact any tile next to the player\nexamples:\tinteract left\n\t\tinteract upright\n\t\tinteract rightup");
     System.out.println("inventory(i) - access the player's inventory");
+    System.out.println("commands(?) - show commands");
     System.out.println("exit - exits the game");
     System.out.println("\n--Inventory Commands--");
     System.out.println();
