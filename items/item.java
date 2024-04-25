@@ -1,5 +1,4 @@
 package items;
-
 public class item{
 	protected int itemId, itemDamage, itemDurability;
 	/* itemId is the id # of the item,
