@@ -225,9 +225,14 @@ public class player extends entity{
   public void printCommands(){
     //prints all user commands ingame
     System.out.printf("\033[H\033[2J");
+    System.out.println("--General Commands--");
     System.out.println("go(m) - move one tile in a given direction\nexamples:\tgo left\n\t\tgo upright\n\t\tgo rightup");
     System.out.println("interact(int) - interact any tile next to the player\nexamples:\tinteract left\n\t\tinteract upright\n\t\tinteract rightup");
     System.out.println("inventory(i) - access the player's inventory");
+    System.out.println("exit - exits the game");
+    System.out.println("\n--Inventory Commands--");
+    System.out.println();
+    System.out.println("e - exits the inventory");
 
     System.out.printf("Press enter to continue...\n");
     keyboard.nextLine();
