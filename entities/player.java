@@ -10,14 +10,13 @@ import items.item;
 //if not, then retry for user input
 public class player extends entity{
   private ArrayList<item> inventory;
-  private Scanner keyboard;
+  private static Scanner keyboard = new Scanner(System.in);;
   // constructor
   public player(level levelHWND, double health, double damage){
     //set up generic variables
     super(levelHWND, health, damage);
 
     inventory = new ArrayList<item>();
-    keyboard = new Scanner(System.in);
   }
 
   @Override
@@ -226,7 +225,7 @@ public class player extends entity{
 	  // This method allows for the anvil entity to access the upgrade function of an item in the private inventory ArrayList
 	  inventory.get(invIndex).upgrade();
   }
-  public void printCommands(){
+  public static void printCommands(){
     //prints all user commands ingame
     System.out.printf("\033[H\033[2J");
     System.out.println("--General Commands--");
