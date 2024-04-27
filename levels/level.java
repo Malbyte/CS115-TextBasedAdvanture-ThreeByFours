@@ -182,10 +182,12 @@ public class level{
   }
 	//prints the current map to the screen
 	public void printMap(){
-		//clears the screen and displays a viewport of the level
+		//clears the screen and displays a viewport of the level with basic player info
     entity curEntity = null;
 
     System.out.print("\033[H\033[2J");
+    System.out.println("Goal: Escape through 3 rooms");
+    System.out.println("Health:\t" + player.getHealth() + "\nItems:\t" + player.getInventory().size());
 
     for(int y = 0; y < curLevel.size(); y++){
       for(int x = 0; x < curLevel.get(y).size(); x++){
