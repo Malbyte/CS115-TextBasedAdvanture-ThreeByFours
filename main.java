@@ -11,13 +11,20 @@ import entities.player;
 import entities.wall;
 import items.item;
 import items.ItemGenerator;
+import java.util.Scanner;
 
 public class main {
 	public static void main(String args[]) {
 		// Level and Entity setup
 		level curLevel = new level();
 		entity curEntity = null;
-		final String startingMap = "example.lmp";
+		final String startingMap = "room1.lmp";
+		Scanner keyboard = new Scanner(System.in);
+
+		// Intro Menu
+		player.printCommands();
+		System.out.println("\n\nGoal: Escape through three rooms without dying\n\nPress Enter to start...");
+		String line = keyboard.nextLine();
 
 		// load the beginning level
 		if(!curLevel.loadMap(startingMap)){
