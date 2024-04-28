@@ -73,7 +73,7 @@ public class player extends entity{
       }
 
       if(target != null){
-        target.changeHealth(-curWeapon.getDamage());
+        target.changeHealth(curWeapon.getDamage());
       }
       return true;
       case "m":

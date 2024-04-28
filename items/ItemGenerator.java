@@ -29,7 +29,7 @@ public class ItemGenerator {
 				i = new item(id, 20, 5, "Potion");
 				break;
 			case 4:	// player's fists
-				i = new item(id, 3, -1, "Fists");
+				i = new item(id, -3, -1, "Fists");
 		}
 		return i;
 	}
