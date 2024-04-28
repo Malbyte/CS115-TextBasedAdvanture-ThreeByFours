@@ -278,7 +278,7 @@ public class player extends entity{
     System.out.println("--General Commands--");
     System.out.println("go(m) - move one tile in a given direction\nexamples:\tgo left\n\t\tgo upright\n\t\tgo rightup");
     System.out.println("interact(i) - interact any tile next to the player\nexamples:\tinteract left\n\t\tinteract upright\n\t\tinteract rightup");
-    System.out.println("attack - attack any enemy next to the player\nexamples:\tattack left\n\t\tattack upright\n\t\tattack rightup");
+    System.out.println("attack (a) - attack any enemy next to the player\nexamples:\tattack left\n\t\tattack upright\n\t\tattack rightup");
     System.out.println("inventory(inv) - access the player's inventory");
     System.out.println("commands(?) - show commands");
     System.out.println("exit - exits the game");
