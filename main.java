@@ -47,6 +47,8 @@ public class main {
 				//player has died at some point during this game loop!
 				System.out.printf("\033[H\033[2J");
 				System.out.println("...");
+				System.out.println("You Died");
+				System.out.println("...");
 				System.out.println("Press any key to continue...");
 				keyboard.nextLine();
 
