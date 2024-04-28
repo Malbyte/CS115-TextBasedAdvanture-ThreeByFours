@@ -238,10 +238,13 @@ public class player extends entity{
 
         case "us":
         case "use":
-          //perform's items interact method
+          // uses item (changes health based on item)
           for(int i = 0; i < inventory.size(); i++){
             if(inventory.get(i).getName().matches(line.substring(line.indexOf(" ") + 1))){
               //do something or something in the future if want to expand on or something, idk anymore I'm not really invested in this project now
+              changeHealth(inventory.get(i).getDamage());
+              removeInventory(line.substring(line.indexOf(" ") + 1));
+
             }
           }
           break;
@@ -291,7 +294,7 @@ public class player extends entity{
     System.out.println("commands(?) - show commands");
     System.out.println("exit - exits the game");
     System.out.println("\n--Inventory Commands--");
-    System.out.println("use(us) - uses weapon\nexamples:\tsetweapon 1 (uses first item in list)");
+    System.out.println("use(us) - uses item (NOTE: Using an item adjusts your health based on that item. Using a weapon will damage you. Do not do it)\nexamples:\tuse Potion (heals you)");
     System.out.println("setweapon(sw) - sets weapon\nexamples:\tsetweapon stick (sets weapon to a stick item in the list)");
     System.out.println("e - exits the inventory");
 
