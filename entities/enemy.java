@@ -10,7 +10,7 @@ import levels.*;
 public class enemy extends entity{
   // track enemies killed
   private static int enemiesKilled = 0;
-
+  private int lockDistance = 8;
   private enum enemyState{
     WANDER,
     CHASE
@@ -25,6 +25,7 @@ public class enemy extends entity{
   }
   @Override
   public void update() {
+    ArrayList<int[]> path = null;
     switch (curState) {
       case WANDER:
         //check if player is within "eyesight" or range (need level method to first check distance, then check if there is a tile in the way of line of sight)
@@ -34,7 +35,11 @@ public class enemy extends entity{
         int tile = randomizer.nextInt(0, 9);
         int offset[] = {(tile % 3) - 1,  (tile / 3) - 1};
         moveEntity(offset);
-
+        
+        path = getLevelHWND().getPath(getLevelHWND().getPlayer().getPos(), getPos());
+        if (path != null && path.size() < lockDistance){
+          curState = enemyState.CHASE;
+        }
 
         break;
       case CHASE:
@@ -43,9 +48,9 @@ public class enemy extends entity{
         //if so, use pathing method to get the next tile (expensive to do, but otherwise the enemy won't update when player updates)
 
         //first get updated array of pathing to player
-        ArrayList<int[]> path = getLevelHWND().getPath(getLevelHWND().getPlayer().getPos(), getPos());
+        path = getLevelHWND().getPath(getLevelHWND().getPlayer().getPos(), getPos());
         //player is too far away for aggro
-        if (path != null && path.size() > 8){
+        if (path != null && path.size() > lockDistance){
           curState = enemyState.WANDER;
         }
         //first check that there still exists a path, if not then can attack
