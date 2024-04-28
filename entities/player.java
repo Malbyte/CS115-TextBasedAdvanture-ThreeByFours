@@ -186,7 +186,7 @@ public class player extends entity{
   protected void die() {
     //player has died...
     //end game and reset
-    
+
   }
   @Override
   public void drawEntity() {
@@ -230,7 +230,7 @@ public class player extends entity{
               curWeapon = inventory.get(i);
             }
           }
-          
+
           break;
 
         case "us":
@@ -278,6 +278,7 @@ public class player extends entity{
     System.out.println("--General Commands--");
     System.out.println("go(m) - move one tile in a given direction\nexamples:\tgo left\n\t\tgo upright\n\t\tgo rightup");
     System.out.println("interact(int) - interact any tile next to the player\nexamples:\tinteract left\n\t\tinteract upright\n\t\tinteract rightup");
+    System.out.println("attack - attack any enemy next to the player\nexamples:\tattack left\n\t\tattack upright\n\t\tattack rightup");
     System.out.println("inventory(i) - access the player's inventory");
     System.out.println("commands(?) - show commands");
     System.out.println("exit - exits the game");
