@@ -276,14 +276,15 @@ public class player extends entity{
     //prints all user commands ingame
     System.out.printf("\033[H\033[2J");
     System.out.println("--General Commands--");
-    System.out.println("go(m) - move one tile in a given direction\nexamples:\tgo left\n\t\tgo upright\n\t\tgo rightup");
+    System.out.println("go(m) - move one tile in a given direction\nexamples:\tgo left\n\t\tgo up\n\t\tgo right");
     System.out.println("interact(i) - interact any tile next to the player\nexamples:\tinteract left\n\t\tinteract upright\n\t\tinteract rightup");
-    System.out.println("attack (a) - attack any enemy next to the player\nexamples:\tattack left\n\t\tattack upright\n\t\tattack rightup");
+    System.out.println("attack (a) - attack any enemy next to the player\nexamples:\tattack left\n\t\tattack up\n\t\tattack right");
     System.out.println("inventory(inv) - access the player's inventory");
     System.out.println("commands(?) - show commands");
     System.out.println("exit - exits the game");
     System.out.println("\n--Inventory Commands--");
-    System.out.println();
+    System.out.println("use(us) - uses weapon\nexamples:\tsetweapon 1 (uses first item in list)");
+    System.out.println("setweapon(sw) - sets weapon\nexamples:\tsetweapon 1 (sets weapon to first item in list)");
     System.out.println("e - exits the inventory");
 
     System.out.printf("Press enter to continue...\n");
