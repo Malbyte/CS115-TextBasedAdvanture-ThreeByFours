@@ -276,7 +276,7 @@ public class player extends entity{
 	  // This method allows for the anvil entity to access the upgrade function of an item in the private inventory ArrayList
 
     //check to make sure index exists
-    if (invIndex < inventory.size()-1){
+    if (invIndex < (inventory.size())){
       inventory.get(invIndex).upgrade();
     }
   }
