@@ -1,5 +1,17 @@
 import levels.*;
+import levels.level;
+import entities.anvil;
+import entities.AStarNode;
+import entities.AStarNodeComparator;
+import entities.chest;
+import entities.door;
+import entities.enemy;
 import entities.entity;
+import entities.player;
+import entities.wall;
+import items.item;
+import items.ItemGenerator;
+// The giant list of imports are needed to make everything compile correctly. Thanks Java.
 import java.util.Scanner;
 
 public class main {
