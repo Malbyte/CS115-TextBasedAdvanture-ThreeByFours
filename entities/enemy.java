@@ -15,7 +15,7 @@ public class enemy extends entity{
     WANDER,
     CHASE
   };
-  private enemyState curState = enemyState.CHASE;
+  private enemyState curState = enemyState.WANDER;
   public enemy(level levelHWND, double health, double damage){
     super(levelHWND, health, damage);
   }

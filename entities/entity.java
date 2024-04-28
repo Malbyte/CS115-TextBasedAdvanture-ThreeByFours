@@ -39,7 +39,7 @@ public abstract class entity{
   // method is called when attacked, healed, etc.
   protected void changeHealth(double health){
     this.health += health;
-    if(health <= 0){
+    if(this.health <= 0){
       this.die();
     }
   }
