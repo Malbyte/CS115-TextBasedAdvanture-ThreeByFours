@@ -7,7 +7,7 @@ import entities.*;
 
 public class level{
   // const definitions
-  private final int STARTINGPLAYERHEALTH = 5;  //this represents how much health the player starts with
+  private final int STARTINGPLAYERHEALTH = 10;  //this represents how much health the player starts with
   private final int STARTINGPLAYERDAMAGE = 1;  //this represents how much damage the player's fists deal at the beginning
 
   // represents a list of all entities and their matching ID; this goes to the switch statement on how they should be spawned when loading a new level
