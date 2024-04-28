@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import levels.*;
+import items.ItemGenerator;
 import items.item;
 
 //TODO:
@@ -10,7 +11,9 @@ import items.item;
 //if not, then retry for user input
 public class player extends entity{
   private ArrayList<item> inventory;
-  private static Scanner keyboard = new Scanner(System.in);;
+  private /*static*/ Scanner keyboard = new Scanner(System.in);
+  item curWeapon = ItemGenerator.generate(4); //when first starting, player is using fists
+
   // constructor
   public player(level levelHWND, double health, double damage){
     //set up generic variables
@@ -39,6 +42,40 @@ public class player extends entity{
   // processes a given input
   private Boolean processInput(String line){
     switch (line.split(" ")[0].toLowerCase()) {
+      case "a":
+      case "attack":
+      entity target = null;
+      switch (line.split(" ")[1].toLowerCase()) {
+        case "u":
+        case "up":
+          target = getLevelHWND().getTile(new int[] {getPos()[0] + 0, getPos()[1] - 1});
+
+          break;
+        case "d":
+        case "down":
+          target = getLevelHWND().getTile(new int[] {getPos()[0] + 0, getPos()[1] + 1});
+
+          break;
+        case "l":
+        case "left":
+          target = getLevelHWND().getTile(new int[] {getPos()[0] - 1, getPos()[1] + 0});
+
+          break;
+        case "r":
+        case "right":
+          target = getLevelHWND().getTile(new int[] {getPos()[0] + 1, getPos()[1] + 0});
+
+        break;
+        default:
+          //invalid direction...
+
+          break;
+      }
+
+      if(target != null){
+        target.changeHealth(-curWeapon.getDamage());
+      }
+      return true;
       case "m":
       case "go":
         //process go command...
@@ -149,6 +186,7 @@ public class player extends entity{
   protected void die() {
     //player has died...
     //end game and reset
+    
   }
   @Override
   public void drawEntity() {
@@ -187,13 +225,22 @@ public class player extends entity{
         case "switchweapon":
         case "sw":
           //set weapon
-
+          for(int i = 0; i < inventory.size(); i++){
+            if(inventory.get(i).getName().matches(line.substring(line.indexOf(" ") + 1))){
+              curWeapon = inventory.get(i);
+            }
+          }
+          
           break;
 
         case "us":
         case "use":
           //perform's items interact method
-
+          for(int i = 0; i < inventory.size(); i++){
+            if(inventory.get(i).getName().matches(line.substring(line.indexOf(" ") + 1))){
+              //do something or something in the future if want to expand on or something, idk anymore I'm not really invested in this project now
+            }
+          }
           break;
 
         case "rm":
@@ -225,7 +272,7 @@ public class player extends entity{
 	  // This method allows for the anvil entity to access the upgrade function of an item in the private inventory ArrayList
 	  inventory.get(invIndex).upgrade();
   }
-  public static void printCommands(){
+  public void printCommands(){
     //prints all user commands ingame
     System.out.printf("\033[H\033[2J");
     System.out.println("--General Commands--");

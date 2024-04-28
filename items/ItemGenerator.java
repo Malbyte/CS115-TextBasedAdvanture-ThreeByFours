@@ -28,6 +28,8 @@ public class ItemGenerator {
 			case 3: // a basic potion
 				i = new item(id, 20, 5, "Potion");
 				break;
+			case 4:	// player's fists
+				i = new item(id, 3, -1, "Fists");
 		}
 		return i;
 	}

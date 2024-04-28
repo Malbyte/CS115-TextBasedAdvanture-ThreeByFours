@@ -40,17 +40,27 @@ public class enemy extends entity{
 
         //first get updated array of pathing to player
         ArrayList<int[]> path = getLevelHWND().getPath(getLevelHWND().getPlayer().getPos(), getPos());
+        //player is too far away for aggro
+        if (path != null && path.size() > 8){
+          curState = enemyState.WANDER;
+        }
         //first check that there still exists a path, if not then can attack
         if(path == null){
           //attack player
-
+          getLevelHWND().getPlayer().changeHealth(-this.getDamage());
           break;
         }
+        else{
         if(getLevelHWND().moveTile(getPos(), path.get(0))){
           setPos(path.get(0));
         }
         break;
+        }
     }
+  }
+  @Override
+  protected void die(){
+    getLevelHWND().setTile(getPos(), null);
   }
   @Override
   public void assignArgument (String arg){
