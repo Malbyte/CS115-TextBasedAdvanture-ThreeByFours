@@ -19,7 +19,11 @@ public class anvil extends entity {
 		Scanner keys = new Scanner(System.in);
 		int index = keys.nextInt();
 		getLevelHWND().getPlayer().upgradeInventory(index); // upgrades item at that index
-		keys.close(); // closes scanner
+		keys.nextLine(); // advance to the next line break
+		//keys.close(); // closes scanner
+		//cannot close scanner! closing any scanner connected to system.in will break any other scanners
+		//that are currently connected:
+		//https://stackoverflow.com/questions/19766566/java-multiple-scanners
 		getLevelHWND().setTile(getPos(), null);
 	}
 	@Override

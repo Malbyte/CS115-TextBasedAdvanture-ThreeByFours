@@ -230,11 +230,10 @@ public class player extends entity{
         case "sw":
           //set weapon
           for(int i = 0; i < inventory.size(); i++){
-            if(inventory.get(i).getName().matches(line.substring(line.indexOf(" ") + 1))){
+            if(inventory.get(i).getName().equalsIgnoreCase(line.substring(line.indexOf(" ") + 1))){
               curWeapon = inventory.get(i);
             }
           }
-
           break;
 
         case "us":
@@ -275,7 +274,11 @@ public class player extends entity{
   }
   public void upgradeInventory(int invIndex) {
 	  // This method allows for the anvil entity to access the upgrade function of an item in the private inventory ArrayList
-	  inventory.get(invIndex).upgrade();
+	  
+    //check to make sure index exists
+    if (invIndex < inventory.size()-1){
+      inventory.get(invIndex).upgrade();
+    }
   }
   public void printCommands(){
     //prints all user commands ingame
