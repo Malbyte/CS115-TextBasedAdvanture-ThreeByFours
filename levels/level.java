@@ -168,7 +168,7 @@ public class level{
           tempEntity = new chest(this);
         break;
         case SQUELICKLY:
-          tempEntity = new enemy(this, 1, 0);
+          tempEntity = new enemy(this, 1, 1);
         break;
         case ANVIL:
 		  tempEntity = new anvil(this);
