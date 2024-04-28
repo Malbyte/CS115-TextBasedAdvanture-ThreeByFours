@@ -16,7 +16,7 @@ public class chest extends entity{
 	// generator to make random item
 	Random gen = new Random();
     //open chest and write to inventory
-    item pickUpItem = ItemGenerator.generate((gen.nextInt() % 4));
+    item pickUpItem = ItemGenerator.generate(gen.nextInt(4));
     getLevelHWND().getPlayer().addInventory(pickUpItem);
     getLevelHWND().setTile(getPos(), null);
   }
