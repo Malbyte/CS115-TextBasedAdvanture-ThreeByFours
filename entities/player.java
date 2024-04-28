@@ -12,7 +12,7 @@ import items.item;
 public class player extends entity{
   private ArrayList<item> inventory;
   private /*static*/ Scanner keyboard = new Scanner(System.in);
-  item curWeapon = ItemGenerator.generate(4); //when first starting, player is using fists
+  private item curWeapon = ItemGenerator.generate(4); //when first starting, player is using fists
 
   // constructor
   public player(level levelHWND, double health, double damage){
@@ -210,6 +210,10 @@ public class player extends entity{
     return false;
   }
 
+  public item getWeapon() {
+	  return curWeapon;
+  }
+
   public ArrayList<item> getInventory() {
       return inventory;
   }
@@ -263,6 +267,7 @@ public class player extends entity{
   }
   public void printInventory(){
     System.out.printf("\033[H\033[2J");
+    System.out.println("Equipped Weapon: " + curWeapon.getName());
     System.out.printf("Inventory:\n");
     for(int i = 0; i < inventory.size(); i++){
       System.out.println(inventory.get(i).getName());
