@@ -11,7 +11,7 @@ import entities.player;
 import entities.wall;
 import items.item;
 import items.ItemGenerator;
-// The giant list of imports are needed to make everything compile correctly. Thanks Java.
+// The giant list of imports is needed to make everything compile correctly. Thanks Java.
 import java.util.Scanner;
 
 public class main {
