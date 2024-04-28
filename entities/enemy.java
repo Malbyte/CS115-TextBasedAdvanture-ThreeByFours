@@ -6,7 +6,11 @@ import levels.*;
 //this represents a basic enemy that chases the player if they are
 //within a certain range
 //for now this example will be of a skeleton
+
 public class enemy extends entity{
+  // track enemies killed
+  private static int enemiesKilled = 0;
+
   private enum enemyState{
     WANDER,
     CHASE
@@ -60,6 +64,7 @@ public class enemy extends entity{
   }
   @Override
   protected void die(){
+    enemy.enemiesKilled += 1;
     getLevelHWND().setTile(getPos(), null);
   }
   @Override
@@ -76,6 +81,9 @@ public class enemy extends entity{
   @Override
   public void drawEntity() {
     System.out.printf("\\s");
+  }
+  public static int getKills() {
+	  return enemiesKilled;
   }
 }
 

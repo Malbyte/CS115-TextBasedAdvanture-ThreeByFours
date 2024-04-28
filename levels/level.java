@@ -187,7 +187,7 @@ public class level{
 
     System.out.print("\033[H\033[2J");
     System.out.println("Goal: Escape through 3 rooms");
-    System.out.println("Health:\t" + player.getHealth() + "\nItems:\t" + player.getInventory().size());
+    System.out.println("Health:\t" + player.getHealth() + "\nKills:\t" + enemy.getKills() + "\nItems:\t" + player.getInventory().size());
 
     for(int y = 0; y < curLevel.size(); y++){
       for(int x = 0; x < curLevel.get(y).size(); x++){
