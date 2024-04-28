@@ -274,7 +274,7 @@ public class player extends entity{
   }
   public void upgradeInventory(int invIndex) {
 	  // This method allows for the anvil entity to access the upgrade function of an item in the private inventory ArrayList
-	  
+
     //check to make sure index exists
     if (invIndex < inventory.size()-1){
       inventory.get(invIndex).upgrade();
@@ -292,7 +292,7 @@ public class player extends entity{
     System.out.println("exit - exits the game");
     System.out.println("\n--Inventory Commands--");
     System.out.println("use(us) - uses weapon\nexamples:\tsetweapon 1 (uses first item in list)");
-    System.out.println("setweapon(sw) - sets weapon\nexamples:\tsetweapon 1 (sets weapon to first item in list)");
+    System.out.println("setweapon(sw) - sets weapon\nexamples:\tsetweapon stick (sets weapon to a stick item in the list)");
     System.out.println("e - exits the inventory");
 
     System.out.printf("Press enter to continue...\n");
