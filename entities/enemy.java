@@ -32,8 +32,7 @@ public class enemy extends entity{
 
         //generate a random #, between 1-9, if 5 stay in place ofc
         Random randomizer = new Random();
-        int tile = randomizer.nextInt(0, 9);
-        int offset[] = {(tile % 3) - 1,  (tile / 3) - 1};
+        int offset[] = {randomizer.nextInt(0, 3) - 1,  randomizer.nextInt(0, 3) - 1};
         moveEntity(offset);
         
         path = getLevelHWND().getPath(getLevelHWND().getPlayer().getPos(), getPos());
@@ -75,8 +74,8 @@ public class enemy extends entity{
   @Override
   public void assignArgument (String arg){
     //take the two ints with a delimeter of |, first is health, second is attack
-    setHealth(Double.parseDouble(arg.split("|")[0]));
-    setDamage(Double.parseDouble(arg.split("|")[2]));
+    setHealth(Double.parseDouble(arg.split("[|]")[0]));
+    setDamage(Double.parseDouble(arg.split("[|]")[1]));
   }
   @Override
   public Boolean takesArgument(){
