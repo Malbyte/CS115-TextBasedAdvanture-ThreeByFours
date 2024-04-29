@@ -3,7 +3,7 @@ package entities;
 import levels.*;
 
 public class door extends entity{
-  String targetRoom = null;
+  protected String targetRoom = null;
 
   public door(level levelHWND){
     super(levelHWND, 0, 0);
