@@ -79,6 +79,12 @@ public class player extends entity{
       case "m":
       case "go":
         //process go command...
+        if(line.split(" ").length < 2){
+          System.out.printf("\033[H\033[2J");
+          System.out.println("error: no preceding operand after " + line.split(" ")[0] + "!\npress any key to continue...");
+          keyboard.nextLine();
+          return false;
+        }
         switch (line.split(" ")[1].toLowerCase()) {
           case "u":
           case "up":
@@ -110,6 +116,13 @@ public class player extends entity{
       case "i":
       case "interact":
       entity temp = null;
+      //check t make sure that there is a preceding command argument
+      if(line.split(" ").length < 2){
+        System.out.printf("\033[H\033[2J");
+        System.out.println("error: no preceding operand after " + line.split(" ")[0] + "!\npress any key to continue...");
+        keyboard.nextLine();
+        return false;
+      }
       switch (line.split(" ")[1].toLowerCase()) {
         case "u":
         case "up":
@@ -157,7 +170,7 @@ public class player extends entity{
 
         //break so the user does not waste a turn in their inventory
         break;
-
+      case "help":
       case "command":
       case "commands":
       case "?":
@@ -229,6 +242,12 @@ public class player extends entity{
         case "switchweapon":
         case "sw":
           //set weapon
+          if(line.split(" ").length < 2){
+            System.out.printf("\033[H\033[2J");
+            System.out.println("error: no preceding operand after " + line.split(" ")[0] + "!\npress any key to continue...");
+            keyboard.nextLine();
+            break;
+          }
           for(int i = 0; i < inventory.size(); i++){
             if(inventory.get(i).getName().equalsIgnoreCase(line.substring(line.indexOf(" ") + 1))){
               curWeapon = inventory.get(i);
@@ -257,6 +276,14 @@ public class player extends entity{
         case "e":
 
           return;
+        case "help":
+        case "command":
+        case "commands":
+        case "?":
+          printCommands();
+          break;
+          
+
         default:
           //unknown command
           break;
