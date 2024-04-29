@@ -28,7 +28,13 @@ public class ItemGenerator {
 			case 3: // a basic potion
 				i = new item(id, 20, 5, "Potion");
 				break;
-			case 4:	// player's fists
+			case 4: // a lesser potion
+							i = new item(id, 10, 5, "Lesser Potion");
+				break;
+			case 5: // a super potion
+							i = new item(id, 30, 5, "Super Potion");
+				break;
+			case 6:	// player's fists
 				i = new item(id, -3, -1, "Fists");
 		}
 		return i;
