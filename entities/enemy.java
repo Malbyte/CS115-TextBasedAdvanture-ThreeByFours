@@ -75,8 +75,8 @@ public class enemy extends entity{
   @Override
   public void assignArgument (String arg){
     //take the two ints with a delimeter of |, first is health, second is attack
-    setHealth(Double.parseDouble(arg.split("|")[0]));
-    setDamage(Double.parseDouble(arg.split("|")[2]));
+    setHealth(Double.parseDouble(arg.split("[|]")[0]));
+    setDamage(Double.parseDouble(arg.split("[|]")[2]));
   }
   @Override
   public Boolean takesArgument(){

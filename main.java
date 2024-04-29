@@ -19,7 +19,7 @@ public class main {
 		// Level and Entity setup
 		level curLevel = new level();
 		entity curEntity = null;
-		final String startingMap = "room1.lmp";
+		final String startingMap = "room3.lmp";
 		Scanner keyboard = new Scanner(System.in);
 
 		gameSetup(curLevel, keyboard, startingMap);
