@@ -12,7 +12,7 @@ import items.item;
 public class player extends entity{
   private ArrayList<item> inventory;
   private /*static*/ Scanner keyboard = new Scanner(System.in);
-  private item curWeapon = ItemGenerator.generate(4); //when first starting, player is using fists
+  private item curWeapon = ItemGenerator.generate(6); //when first starting, player is using fists
 
   // constructor
   public player(level levelHWND, double health, double damage){
