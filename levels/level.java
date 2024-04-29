@@ -1,11 +1,13 @@
+package levels;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import java.io.*;
 
-class level{
+import entities.*;
+
+public class level{
   // const definitions
-  private final int STARTINGPLAYERHEALTH = 5;  //this represents how much health the player starts with
+  private final int STARTINGPLAYERHEALTH = 10;  //this represents how much health the player starts with
   private final int STARTINGPLAYERDAMAGE = 1;  //this represents how much damage the player's fists deal at the beginning
 
   // represents a list of all entities and their matching ID; this goes to the switch statement on how they should be spawned when loading a new level
@@ -15,7 +17,8 @@ class level{
     WALL,
     DOOR,
     CHEST,
-    SQUELICKLY  //really weak skeleton enemy, just a test enemy entity
+    SQUELICKLY,  //really weak skeleton enemy, just a test enemy entity
+    ANVIL
   };
 
 
@@ -50,7 +53,7 @@ class level{
 
 
 		//try to open given file
-		fp = new File(mapName);
+		fp = new File(String.join("", "levels/", mapName));
 
 
 		//if file does not exist, return false
@@ -165,7 +168,10 @@ class level{
           tempEntity = new chest(this);
         break;
         case SQUELICKLY:
-          tempEntity = new enemy(this, 1, 0);
+          tempEntity = new enemy(this, 1, 1);
+        break;
+        case ANVIL:
+		  tempEntity = new anvil(this);
         break;
       default:
         //unkown entity, draw error entity
@@ -176,10 +182,12 @@ class level{
   }
 	//prints the current map to the screen
 	public void printMap(){
-		//clears the screen and displays a viewport of the level
+		//clears the screen and displays a viewport of the level with basic player info
     entity curEntity = null;
 
     System.out.print("\033[H\033[2J");
+    System.out.println("Goal: Escape through 3 rooms");
+    System.out.println("Health:\t" + player.getHealth() + "\nKills:\t" + enemy.getKills() + "\nItems:\t" + player.getInventory().size() + "\tWeapon:\t" + player.getWeapon().getName());
 
     for(int y = 0; y < curLevel.size(); y++){
       for(int x = 0; x < curLevel.get(y).size(); x++){
@@ -258,7 +266,7 @@ class level{
     //algorithm loop
     while(true){
       //printmap tool to help debug and ensure pathing looks like how algorithm should behave
-      this.printMap();
+      //this.printMap();
 
       //first start iteration by organizing the nodes to find least value.
       currentNodeList.sort(new AStarNodeComparator());

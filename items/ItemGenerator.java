@@ -1,13 +1,14 @@
+package items;
 public class ItemGenerator {
 	// Main method for testing purposes
-	public static void main(String[] args) {
-		item stck1 = generate(0);
-		item stck2 = generate(1);
-		System.out.println(stck1.getName() + " does "+ stck1.getDamage());
-		System.out.println(stck2.getName() + " does "+ stck2.getDamage());
-		stck2.upgrade(); // Upgrades Stick of Power
-		System.out.println(stck2.getName() + " does "+ stck2.getDamage());
-	}
+	// public static void main(String[] args) {
+	// 	item stck1 = generate(0);
+	// 	item stck2 = generate(1);
+	//	System.out.println(stck1.getName() + " does "+ stck1.getDamage());
+	//	System.out.println(stck2.getName() + " does "+ stck2.getDamage());
+	//	stck2.upgrade(); // Upgrades Stick of Power
+	//	System.out.println(stck2.getName() + " does "+ stck2.getDamage());
+	//}
 
 	/////////////////////////////////////////////////////////
 	// Function for generating an item of the specified id
@@ -27,6 +28,8 @@ public class ItemGenerator {
 			case 3: // a basic potion
 				i = new item(id, 20, 5, "Potion");
 				break;
+			case 4:	// player's fists
+				i = new item(id, -3, -1, "Fists");
 		}
 		return i;
 	}

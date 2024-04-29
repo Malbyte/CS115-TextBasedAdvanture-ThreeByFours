@@ -1,3 +1,5 @@
+import levels.*;
+import entities.*;
 public class exampleUsage {
   private static final String startingMap = "example.lmp";
 
