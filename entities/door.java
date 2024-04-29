@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.Scanner;
+
 import levels.*;
 
 public class door extends entity{
@@ -11,13 +13,21 @@ public class door extends entity{
   @Override
   protected void interact() {
     //ldepending on what is specified in map file, may go to new map, or may represent a subdivision of rooms in map
-    if (targetRoom != null){
+    if(targetRoom == null){
+      // normal door, therefore get rid of it when opened
+      getLevelHWND().setTile(getPos(), null);
+      return;
+    }
+    if (!targetRoom.matches("__LOCKED__")){
       getLevelHWND().loadMap(targetRoom);
 
       return;
     }
-    //for now at least, when open door and targetroom is null, turn tile into null
-    getLevelHWND().setTile(getPos(), null);
+    else{
+      System.out.println("This door seems to be locked...\npress any key to continue.");
+      Scanner keyboard = new Scanner(System.in);
+      keyboard.nextLine();
+    }
   }
   @Override
   public void drawEntity() {
@@ -32,6 +42,12 @@ public class door extends entity{
     if(arg.compareTo("Normal") == 0){
       //normal door, when interact with door opens
       targetRoom = null;
+
+      return;
+    }
+    if(arg.compareTo("Locked") == 0){
+      //normal door, when interact with door opens
+      targetRoom = "__LOCKED__";
 
       return;
     }
