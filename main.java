@@ -71,6 +71,14 @@ public class main {
 
 	static private void gameSetup(level curLevel, Scanner keyboard, String startingMap){
 		// Intro Menu
+		System.out.printf("\033[H\033[2J");
+		System.out.println("##################################################################################################   \r\n" + //
+						   "###            #   #     #    #                    #   #           ###        #   #            ###   \r\n" + //
+						   "#  #  ##  ###  #  ####   #    #  ###  # #   ##    #### #     ##    #  #  ##  ####    ##  ###  #      \r\n" + //
+						   "#  # #  # #  #     #     ###  # #  # # # # ####    #   ###  ####   ###  #  #  #   # #  # #  #  ##    \r\n" + //
+						   "#  # #  # #  #     #     #  # # #  # #   # #       #   #  # #      #    #  #  #   # #  # #  #    #   \r\n" + //
+						   "###   ##  #  #     #     ###  #  ### #   #  ##     #   #  #  ##    #     ##   #   #  ##  #  # ###    \r\n" + //
+						   "##################################################################################################");
 		curLevel.getPlayer().printCommands();
 		System.out.println("\n\nGoal: Escape through three rooms without dying\n\nPress Enter to start...");
 		String line = keyboard.nextLine();
