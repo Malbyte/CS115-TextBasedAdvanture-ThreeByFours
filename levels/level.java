@@ -11,7 +11,7 @@ public class level{
   private final int STARTINGPLAYERDAMAGE = 1;  //this represents how much damage the player's fists deal at the beginning
 
   // represents a list of all entities and their matching ID; this goes to the switch statement on how they should be spawned when loading a new level
-  enum entityTypes{
+  private enum entityTypes{
     EMPTY,
     PLAYER,
     WALL,
