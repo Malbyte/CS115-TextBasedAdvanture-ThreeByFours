@@ -44,6 +44,12 @@ public class player extends entity{
     switch (line.split(" ")[0].toLowerCase()) {
       case "a":
       case "attack":
+      if(line.split(" ").length < 2){
+        System.out.printf("\033[H\033[2J");
+        System.out.println("error: no preceding operand after " + line.split(" ")[0] + "!\npress any key to continue...");
+        keyboard.nextLine();
+        break;
+      }
       entity target = null;
       switch (line.split(" ")[1].toLowerCase()) {
         case "ul":
