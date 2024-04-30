@@ -118,7 +118,7 @@ public class level{
             break;
           }
         }
-        if(i == curLevel.get(currentIndex).size()){
+        if(i == curLevel.get(currentIndex).size()+1){
           //no entity corrosponding, throw error!
 
           System.out.printf("ERROR: Extraneous variable %s!\n", subLine);

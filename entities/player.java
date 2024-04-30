@@ -341,6 +341,7 @@ public class player extends entity{
             keyboard.nextLine();
             break;
           }
+          //will equip the last known version of this item in the list
           for(int i = 0; i < inventory.size(); i++){
             if(inventory.get(i).getName().equalsIgnoreCase(line.substring(line.indexOf(" ") + 1))){
               curWeapon = inventory.get(i);
@@ -356,6 +357,9 @@ public class player extends entity{
               //do something or something in the future if want to expand on or something, idk anymore I'm not really invested in this project now
               changeHealth(inventory.get(i).getDamage());
               //removeInventory(line.substring(line.indexOf(" ") + 1));
+              if(curWeapon == inventory.get(i)){
+                curWeapon = ItemGenerator.generate(6);  //when item is consumed, go back to using fists!
+              }
               inventory.remove(i);
               
               break;
