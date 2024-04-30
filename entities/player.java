@@ -237,7 +237,7 @@ public class player extends entity{
     line = keyboard.nextLine();
     while(!line.matches("exit")){
       switch (line.split(" ")[0].toLowerCase()) {
-
+        case "equip":
         case "setweapon":
         case "switchweapon":
         case "sw":
