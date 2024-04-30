@@ -49,24 +49,28 @@ public class player extends entity{
         case "ul":
         case "lu":
         case "leftup":
+        case "upleft":
           target = getLevelHWND().getTile(new int[] {getPos()[0] - 1, getPos()[1] - 1});
             
           break;
         case "ur":
         case "ru":
         case "rightup":
+        case "upright":
           target = getLevelHWND().getTile(new int[] {getPos()[0] + 1, getPos()[1] - 1});
 
           break;
         case "dl":
         case "ld":
         case "leftdown":
+        case "downleft":
           target = getLevelHWND().getTile(new int[] {getPos()[0] - 1, getPos()[1] + 1});
 
           break;
         case "dr":
         case "rd":
         case "rightdown":
+        case "downright":
           target = getLevelHWND().getTile(new int[] {getPos()[0] + 1, getPos()[1] + 1});
 
           break;
@@ -113,24 +117,28 @@ public class player extends entity{
           case "ul":
           case "lu":
           case "leftup":
+          case "upleft":
             moveEntity(new int[] {1, 1});
             
             break;
           case "ur":
           case "ru":
           case "rightup":
+          case "upright":
           moveEntity(new int[] {-1, 1});
 
             break;
           case "dl":
           case "ld":
           case "leftdown":
+          case "downleft":
             moveEntity(new int[] {1, -1});
 
             break;
           case "dr":
           case "rd":
           case "rightdown":
+          case "downright":
             moveEntity(new int[] {-1, -1});
 
             break;
@@ -175,24 +183,28 @@ public class player extends entity{
           case "ul":
           case "lu":
           case "leftup":
+          case "upleft":
           temp = getLevelHWND().getTile(new int[] {getPos()[0] - 1, getPos()[1] - 1});
 
           break;
           case "ur":
           case "ru":
           case "rightup":
+          case "upright":
           temp = getLevelHWND().getTile(new int[] {getPos()[0] + 1, getPos()[1] - 1});
 
           break;
           case "dl":
           case "ld":
           case "leftdown":
+          case "downleft":
           temp = getLevelHWND().getTile(new int[] {getPos()[0] - 1, getPos()[1] + 1});
 
           break;
           case "dr":
           case "rd":
           case "rightdown":
+          case "downright":
           temp = getLevelHWND().getTile(new int[] {getPos()[0] + 1, getPos()[1] + 1});
 
           break;
@@ -246,7 +258,10 @@ public class player extends entity{
       case "command":
       case "commands":
       case "?":
+        System.out.printf("\033[H\033[2J");
         printCommands();
+        System.out.printf("Press enter to continue...\n");
+        keyboard.nextLine();
 
         break;
       case "exit":
@@ -326,7 +341,7 @@ public class player extends entity{
             }
           }
           break;
-
+        case "u":
         case "us":
         case "use":
           // uses item (changes health based on item)
@@ -358,13 +373,17 @@ public class player extends entity{
         case "command":
         case "commands":
         case "?":
+          System.out.printf("\033[H\033[2J");
           printCommands();
-          break;
-          
+          System.out.printf("Press enter to continue...\n");
+          keyboard.nextLine();
 
+          break;
         default:
           //unknown command
-          System.out.println("unkown command ");
+          System.out.printf("\033[H\033[2J");
+          System.out.println("unkown command " + line + "!\npress any key to continue...");
+          keyboard.nextLine();
           break;
       }
       printInventory();
@@ -391,11 +410,10 @@ public class player extends entity{
   }
   public void printCommands(){
     //prints all user commands ingame
-    System.out.printf("\033[H\033[2J");
     System.out.println("--General Commands--");
-    System.out.println("go(m) - move one tile in a given direction\nexamples:\tgo left\n\t\tgo up\n\t\tgo right");
-    System.out.println("interact(i) - interact any tile next to the player\nexamples:\tinteract left\n\t\tinteract upright\n\t\tinteract rightup");
-    System.out.println("attack (a) - attack any enemy next to the player\nexamples:\tattack left\n\t\tattack up\n\t\tattack right");
+    System.out.println("go(m) - move one tile in a given direction\nexamples:\tgo upleft\n\t\tgo up\n\t\tgo right");
+    System.out.println("interact(i) - interact any tile adjacent to the player\nexamples:\tinteract left\n\t\tinteract upright\n\t\tinteract rightup");
+    System.out.println("attack (a) - attack any enemy adjacent to the player\nexamples:\tattack left\n\t\tattack up\n\t\tattack right");
     System.out.println("inventory(inv) - access the player's inventory");
     System.out.println("commands(?) - show commands");
     System.out.println("exit - exits the game");
@@ -403,8 +421,5 @@ public class player extends entity{
     System.out.println("use(us) - uses item (NOTE: Using an item adjusts your health based on that item.\n\t\tUsing a weapon will damage you. Do not do it)\nexamples:\tuse Potion (heals you)");
     System.out.println("setweapon(sw) - sets weapon\nexamples:\tsetweapon stick (sets weapon to a stick item in the list)");
     System.out.println("e - exits the inventory");
-
-    System.out.printf("Press enter to continue...\n");
-    keyboard.nextLine();
   }
 }
