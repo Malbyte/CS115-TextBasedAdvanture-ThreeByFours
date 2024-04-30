@@ -46,30 +46,54 @@ public class player extends entity{
       case "attack":
       entity target = null;
       switch (line.split(" ")[1].toLowerCase()) {
-        case "u":
-        case "up":
-          target = getLevelHWND().getTile(new int[] {getPos()[0] + 0, getPos()[1] - 1});
+        case "ul":
+        case "lu":
+        case "leftup":
+          target = getLevelHWND().getTile(new int[] {getPos()[0] - 1, getPos()[1] - 1});
+            
+          break;
+        case "ur":
+        case "ru":
+        case "rightup":
+          target = getLevelHWND().getTile(new int[] {getPos()[0] + 1, getPos()[1] - 1});
 
           break;
-        case "d":
-        case "down":
-          target = getLevelHWND().getTile(new int[] {getPos()[0] + 0, getPos()[1] + 1});
+        case "dl":
+        case "ld":
+        case "leftdown":
+          target = getLevelHWND().getTile(new int[] {getPos()[0] - 1, getPos()[1] + 1});
 
           break;
-        case "l":
-        case "left":
-          target = getLevelHWND().getTile(new int[] {getPos()[0] - 1, getPos()[1] + 0});
+        case "dr":
+        case "rd":
+        case "rightdown":
+          target = getLevelHWND().getTile(new int[] {getPos()[0] + 1, getPos()[1] + 1});
 
           break;
-        case "r":
-        case "right":
-          target = getLevelHWND().getTile(new int[] {getPos()[0] + 1, getPos()[1] + 0});
+      case "u":
+      case "up":
+        target = getLevelHWND().getTile(new int[] {getPos()[0] + 0, getPos()[1] - 1});
 
         break;
-        default:
-          //invalid direction...
+      case "d":
+      case "down":
+        target = getLevelHWND().getTile(new int[] {getPos()[0] + 0, getPos()[1] + 1});
 
-          break;
+        break;
+      case "l":
+      case "left":
+        target = getLevelHWND().getTile(new int[] {getPos()[0] - 1, getPos()[1] + 0});
+
+      break;
+      case "r":
+      case "right":
+        target = getLevelHWND().getTile(new int[] {getPos()[0] + 1, getPos()[1] + 0});
+
+      break;
+      default:
+        //invalid direction...
+
+        break;
       }
 
       if(target != null){
@@ -86,6 +110,30 @@ public class player extends entity{
           return false;
         }
         switch (line.split(" ")[1].toLowerCase()) {
+          case "ul":
+          case "lu":
+          case "leftup":
+            moveEntity(new int[] {1, 1});
+            
+            break;
+          case "ur":
+          case "ru":
+          case "rightup":
+          moveEntity(new int[] {-1, 1});
+
+            break;
+          case "dl":
+          case "ld":
+          case "leftdown":
+            moveEntity(new int[] {1, -1});
+
+            break;
+          case "dr":
+          case "rd":
+          case "rightdown":
+            moveEntity(new int[] {-1, -1});
+
+            break;
           case "u":
           case "up":
             moveEntity(new int[] {0, 1});
@@ -124,6 +172,30 @@ public class player extends entity{
         return false;
       }
       switch (line.split(" ")[1].toLowerCase()) {
+          case "ul":
+          case "lu":
+          case "leftup":
+          temp = getLevelHWND().getTile(new int[] {getPos()[0] - 1, getPos()[1] - 1});
+
+          break;
+          case "ur":
+          case "ru":
+          case "rightup":
+          temp = getLevelHWND().getTile(new int[] {getPos()[0] + 1, getPos()[1] - 1});
+
+          break;
+          case "dl":
+          case "ld":
+          case "leftdown":
+          temp = getLevelHWND().getTile(new int[] {getPos()[0] - 1, getPos()[1] + 1});
+
+          break;
+          case "dr":
+          case "rd":
+          case "rightdown":
+          temp = getLevelHWND().getTile(new int[] {getPos()[0] + 1, getPos()[1] + 1});
+
+          break;
         case "u":
         case "up":
           temp = getLevelHWND().getTile(new int[] {getPos()[0] + 0, getPos()[1] - 1});
@@ -259,11 +331,17 @@ public class player extends entity{
         case "use":
           // uses item (changes health based on item)
           for(int i = 0; i < inventory.size(); i++){
-            if(inventory.get(i).getName().matches(line.substring(line.indexOf(" ") + 1))){
+            if(inventory.get(i).getName().equalsIgnoreCase(line.substring(line.indexOf(" ") + 1))){
               //do something or something in the future if want to expand on or something, idk anymore I'm not really invested in this project now
               changeHealth(inventory.get(i).getDamage());
-              removeInventory(line.substring(line.indexOf(" ") + 1));
-
+              //removeInventory(line.substring(line.indexOf(" ") + 1));
+              for(int x = 0; x < inventory.size(); x++){
+                if(inventory.get(x).getName().equalsIgnoreCase(line.substring(line.indexOf(" ") + 1))){
+                  inventory.remove(x);
+                  
+                  break;
+                }
+              }
             }
           }
           break;
@@ -286,6 +364,7 @@ public class player extends entity{
 
         default:
           //unknown command
+          System.out.println("unkown command ");
           break;
       }
       printInventory();
