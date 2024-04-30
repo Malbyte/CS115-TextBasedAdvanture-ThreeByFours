@@ -356,13 +356,9 @@ public class player extends entity{
               //do something or something in the future if want to expand on or something, idk anymore I'm not really invested in this project now
               changeHealth(inventory.get(i).getDamage());
               //removeInventory(line.substring(line.indexOf(" ") + 1));
-              for(int x = 0; x < inventory.size(); x++){
-                if(inventory.get(x).getName().equalsIgnoreCase(line.substring(line.indexOf(" ") + 1))){
-                  inventory.remove(x);
-                  
-                  break;
-                }
-              }
+              inventory.remove(i);
+              
+              break;
             }
           }
           break;

@@ -12,6 +12,8 @@ import entities.wall;
 import items.item;
 import items.ItemGenerator;
 // The giant list of imports is needed to make everything compile correctly. Thanks Java.
+//textpad IDE moment :/
+
 import java.util.Scanner;
 
 public class main {
